@@ -1,0 +1,8 @@
+{
+  "name": "Nutrition Tracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "51ccb8ec"
+}
