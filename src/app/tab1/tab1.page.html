@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Food Schedule: {{ startEnd[0] | date: 'shortDate' }} - {{ startEnd[1] | date: 'shortDate'}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,48 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Food Tab</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-list class="week-list">
+    <!-- First level-->
+    <ion-list-header *ngFor="let item of information; let i = index" no-lines no-padding>
+      <ion-item>
+        <button ion-item(click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+          <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+          <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+          {{ i }}
+        </button>
+      </ion-item>
+    </ion-list-header>
+  </ion-list>
+  
+<!-- List of Text Items -->
+<!-- <ion-list>
+  <ion-item>
+    <ion-label>Pokémon Yellow</ion-label>
+  </ion-item>
+</ion-list> -->
+
+<!-- List of Input Items -->
+<!-- <ion-list>
+  <ion-item>
+    <ion-label>Input</ion-label>
+    <ion-input></ion-input>
+  </ion-item>
+</ion-list> -->
+
+<!-- List of Sliding Items -->
+<!-- <ion-list>
+  <ion-item-sliding>
+    <ion-item>
+      <ion-label>Item</ion-label>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option (click)="unread(item)">Unread</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list> -->
+
 </ion-content>

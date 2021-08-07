@@ -1,0 +1,39 @@
+{
+    "items": [
+        {
+            "name": "Action",
+            "children": [
+                {
+                    "name": "Special Pizza Academy",
+                    "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    "price": "$25"
+                },
+                {
+                    "name": "Pizza Ionic",
+                    "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                    "price": "$19.99"
+                }
+            ]
+        },
+        {
+            "name": "Pizza",
+            "children": [
+                {
+                    "name": "Traditional",
+                    "children": [
+                        {
+                            "name": "Pizza Salami",
+                            "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                            "price": "$10"
+                        },
+                        {
+                            "name": "Pizza Prosciutto",
+                            "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                            "price": "$12"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
