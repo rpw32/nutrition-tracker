@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
 
 
 
@@ -14,12 +12,20 @@ export class Tab1Page {
   information: any[];
   startEnd = this.getFirstDayOfWeek();
 
-  constructor(public datepipe: DatePipe, private http: HttpClient) {
-    this.http.get('assets/information.json').subscribe((data) => {
-      this.information = data['items'];
+  constructor(private http: HttpClient) {
+    const localData = this.http.get('assets/information.json');
+    localData.subscribe((data) => {
+      this.information = data["items"];
     });
   }
 
+  toggleSection(i) {
+    this.information[i].open = !this.information[i].open;
+  }
+
+  toggleItem(i, j) {
+    this.information[i].children[j].open = !this.information[i].open;
+  }
 
   getFirstDayOfWeek()
   {
@@ -31,9 +37,8 @@ export class Tab1Page {
     diff = startDate.getDate() + 6;
     endDate.setDate(diff);
 
-    console.log(this.information);
-
     return [startDate, endDate];
   }
 
 }
+

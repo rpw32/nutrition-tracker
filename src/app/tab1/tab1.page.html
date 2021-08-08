@@ -6,26 +6,35 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Food Tab</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content>
   <ion-list class="week-list">
     <!-- First level-->
     <ion-list-header *ngFor="let item of information; let i = index" no-lines no-padding>
-      <ion-item>
-        <button ion-item(click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
-          <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
-          <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
-          {{ i }}
-        </button>
+      <ion-item button (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+        <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+        <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+        {{ item.name }}
       </ion-item>
+      <ion-list *ngIf="item.children && item.open" no-lines>
+        <!-- Second level-->
+        <ion-list-header *ngFor="let child of item.children; let j = index" no-padding>
+          <!-- Toggle Button -->
+          <ion-item button (click)="toggleItem(i, j)" detail-none class="child-item" *ngIf="child.children">
+            <ion-icon item-left name="add" *ngIf="!child.open"></ion-icon>
+            <ion-icon item-left name="close" *ngIf="child.open"></ion-icon>
+            {{ child.name }}
+          </ion-item>
+      <!-- Direct Add Button -->
+      <ion-item *ngIf="!child.children" detail-none class="child-item" text-wrap>
+        <h3>{{ child.name }}</h3>
+        <p text-lowercase>{{ child.information }}</p>
+        <ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</ion-button>
+      </ion-item>
+        </ion-list-header>
+      </ion-list>
     </ion-list-header>
   </ion-list>
-  
+</ion-content>
 <!-- List of Text Items -->
 <!-- <ion-list>
   <ion-item>
@@ -53,4 +62,4 @@
   </ion-item-sliding>
 </ion-list> -->
 
-</ion-content>
+
