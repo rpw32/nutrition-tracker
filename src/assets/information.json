@@ -1,37 +1,142 @@
 {
     "items": [
         {
-            "name": "Action",
+            "name": "Sunday",
             "children": [
                 {
-                    "name": "Special Pizza Academy",
-                    "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    "price": "$25"
+                    "name": "Breakfast",
+                    "information": "Chicken Tikka Masala",
+                    "ingredients": "ingredients"
                 },
                 {
-                    "name": "Pizza Ionic",
-                    "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                    "price": "$19.99"
+                    "name": "Lunch",
+                    "information": "Pizza",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Dinner",
+                    "information": "Tacos",
+                    "ingredients": "ingredients"
                 }
             ]
         },
         {
-            "name": "Pizza",
+            "name": "Monday",
             "children": [
                 {
-                    "name": "Traditional",
-                    "children": [
-                        {
-                            "name": "Pizza Salami",
-                            "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                            "price": "$10"
-                        },
-                        {
-                            "name": "Pizza Prosciutto",
-                            "information": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                            "price": "$12"
-                        }
-                    ]
+                    "name": "Breakfast",
+                    "information": "Chicken Tikka Masala",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Lunch",
+                    "information": "Pizza",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Dinner",
+                    "information": "Tacos",
+                    "ingredients": "ingredients"
+                }
+            ]
+        },
+        {
+            "name": "Tuesday",
+            "children": [
+                {
+                    "name": "Breakfast",
+                    "information": "Chicken Tikka Masala",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Lunch",
+                    "information": "Pizza",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Dinner",
+                    "information": "Tacos",
+                    "ingredients": "ingredients"
+                }
+            ]
+        },
+        {
+            "name": "Wednesday",
+            "children": [
+                {
+                    "name": "Breakfast",
+                    "information": "Chicken Tikka Masala",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Lunch",
+                    "information": "Pizza",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Dinner",
+                    "information": "Tacos",
+                    "ingredients": "ingredients"
+                }
+            ]
+        },
+        {
+            "name": "Thursday",
+            "children": [
+                {
+                    "name": "Breakfast",
+                    "information": "Chicken Tikka Masala",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Lunch",
+                    "information": "Pizza",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Dinner",
+                    "information": "Tacos",
+                    "ingredients": "ingredients"
+                }
+            ]
+        },
+        {
+            "name": "Friday",
+            "children": [
+                {
+                    "name": "Breakfast",
+                    "information": "Chicken Tikka Masala",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Lunch",
+                    "information": "Pizza",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Dinner",
+                    "information": "Tacos",
+                    "ingredients": "ingredients"
+                }
+            ]
+        },
+        {
+            "name": "Saturday",
+            "children": [
+                {
+                    "name": "Breakfast",
+                    "information": "Chicken Tikka Masala",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Lunch",
+                    "information": "Pizza",
+                    "ingredients": "ingredients"
+                },
+                {
+                    "name": "Dinner",
+                    "information": "Tacos",
+                    "ingredients": "ingredients"
                 }
             ]
         }

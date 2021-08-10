@@ -1,40 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <h1 class="title"><img class="title-image" src="assets/logo.svg" width=vw height=100 /></h1>
     <ion-title>
       Food Schedule: {{ startEnd[0] | date: 'shortDate' }} - {{ startEnd[1] | date: 'shortDate'}}
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="automaticClose = !automaticClose">
+        <ion-icon slot="icon-only" name="close" *ngIf="automaticClose"></ion-icon>
+        <ion-icon slot="icon-only" name="resize" *ngIf="!automaticClose"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list class="week-list">
-    <!-- First level-->
-    <ion-list-header *ngFor="let item of information; let i = index" no-lines no-padding>
-      <ion-item button (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
-        <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
-        <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+
+  <ion-list *ngFor="let item of information; let i = index;" class="accordion-list" lines="none" detail="false" no-padding>
+
+    <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': item.open, 'section': !item.open}">
+      <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!item.open"></ion-icon>
+      <ion-icon slot="end" name="chevron-down-outline" *ngIf="item.open"></ion-icon>
+      <ion-label>
         {{ item.name }}
-      </ion-item>
-      <ion-list *ngIf="item.children && item.open" no-lines>
-        <!-- Second level-->
-        <ion-list-header *ngFor="let child of item.children; let j = index" no-padding>
-          <!-- Toggle Button -->
-          <ion-item button (click)="toggleItem(i, j)" detail-none class="child-item" *ngIf="child.children">
-            <ion-icon item-left name="add" *ngIf="!child.open"></ion-icon>
-            <ion-icon item-left name="close" *ngIf="child.open"></ion-icon>
-            {{ child.name }}
-          </ion-item>
-      <!-- Direct Add Button -->
-      <ion-item *ngIf="!child.children" detail-none class="child-item" text-wrap>
-        <h3>{{ child.name }}</h3>
-        <p text-lowercase>{{ child.information }}</p>
-        <ion-button outline item-end (click)="buyItem(child)">{{ child.price }}</ion-button>
-      </ion-item>
-        </ion-list-header>
+      </ion-label>
+    </ion-item>
+
+    <div *ngIf="item.children && item.open">
+      <ion-list *ngFor="let child of item.children; let j = index;" lines="none" class="child-list">
+        <app-product [product]="child" *ngIf="!child.children"></app-product>
       </ion-list>
-    </ion-list-header>
+    </div>
   </ion-list>
 </ion-content>
+
+
+
+
 <!-- List of Text Items -->
 <!-- <ion-list>
   <ion-item>

@@ -1,0 +1,53 @@
+
+ion-item {
+    border-radius: 8px;
+}
+
+ion-title {
+    padding: 10px;
+}
+
+.title {
+    text-align: center;
+}
+
+.accordion-list {
+    position: relative;
+    top: 10px;
+    padding: 8px;
+    margin-bottom: 4px;
+    background-color: var(--ion-background-color);
+
+    .section, .section-active {
+        --min-height:58px;
+    }
+}
+
+.section {
+    --ion-item-background: var(--ion-color-step-50);
+    --ion-item-color: var(ion-color-light);
+}
+
+.section-active {
+    --ion-item-background: var(--ion-color-primary);
+    --ion-item-color: var(ion-color-light);
+    font-weight: 600;
+
+    ion-icon {
+        color: #fff;
+    }
+}
+
+.child-list {
+    padding: 0px;
+    margin: 8px;
+    border-radius: 8px;
+    .child, .child-active {
+        margin-bottom: 2px;
+    }
+}
+
+.product-list {
+    padding: 0px;
+    margin: 0px;
+}

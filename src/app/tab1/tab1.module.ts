@@ -7,6 +7,7 @@ import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { SharedComponentsModule } from '../shared-components/shared-components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     FormsModule,
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedComponentsModule
   ],
   declarations: [Tab1Page],
   providers: [DatePipe]

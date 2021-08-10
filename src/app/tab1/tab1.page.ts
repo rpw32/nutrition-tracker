@@ -12,19 +12,27 @@ export class Tab1Page {
   information: any[];
   startEnd = this.getFirstDayOfWeek();
 
+  automaticClose = false;
+
   constructor(private http: HttpClient) {
-    const localData = this.http.get('assets/information.json');
-    localData.subscribe((data) => {
-      this.information = data["items"];
+    this.http.get('assets/information.json').subscribe(data => {
+      this.information = data['items'];
     });
   }
 
   toggleSection(i) {
     this.information[i].open = !this.information[i].open;
+
+    if (this.automaticClose && this.information[i].open)
+    {
+      this.information
+        .filter((item, itemIndex) => itemIndex !== i)
+        .map(item => item.open = false);
+    }
   }
 
   toggleItem(i, j) {
-    this.information[i].children[j].open = !this.information[i].open;
+    this.information[i].children[j].open = !this.information[i].children[j].open;
   }
 
   getFirstDayOfWeek()
