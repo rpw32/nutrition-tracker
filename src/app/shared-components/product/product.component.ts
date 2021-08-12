@@ -13,9 +13,11 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {}
 
-  async buyItem(product) {
+  async addIngredient(ingredient) {
     const toast = await this.toastCtrl.create({
-      message: `Added to the cart: ${product.name}`
+      message: `Added to grocery list: ${ingredient.name}`,
+      duration: 2000,
+      position: 'top'
     });
     toast.present();
   }

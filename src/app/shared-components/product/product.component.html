@@ -9,9 +9,20 @@
           <p text-lowercase color="medium">{{ product.information }}</p>
         </ion-col>
       </ion-row>
-    </ion-col>
-    <ion-col size="3" text-right>
-      <ion-button fill="outline" (click)="buyItem(product)">{{ product.price }}</ion-button>
+      <ion-row no-padding>
+        <div *ngIf="product.ingredients">
+          <h5>Ingredients: </h5>
+          <ion-list *ngFor="let ingredient of product.ingredients; let i = index;" lines="none" class="child-list">
+            <ion-item>
+              {{ ingredient.name }}
+              <ion-checkbox slot="start"></ion-checkbox>
+              <ion-button (click)="addIngredient(ingredient)" slot="end" shape="round">
+                <ion-icon name="bag-add-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-row>
     </ion-col>
   </ion-row>
 </ion-item>

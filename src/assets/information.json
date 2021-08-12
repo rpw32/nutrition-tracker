@@ -6,17 +6,47 @@
                 {
                     "name": "Breakfast",
                     "information": "Chicken Tikka Masala",
-                    "ingredients": "ingredients"
+                    "ingredients": [
+                        {
+                            "name": "greek yogurt"
+                        },
+                        {
+                            "name": "turmeric"
+                        },
+                        {
+                            "name": "heavy cream"
+                        }
+                    ]
                 },
                 {
                     "name": "Lunch",
                     "information": "Pizza",
-                    "ingredients": "ingredients"
+                    "ingredients": [
+                        {
+                            "name": "pizza sauce"
+                        },
+                        {
+                            "name": "pepperoni"
+                        },
+                        {
+                            "name": "cheese"
+                        },
+                        {
+                            "name": "red peppers"
+                        }
+                    ]
                 },
                 {
                     "name": "Dinner",
                     "information": "Tacos",
-                    "ingredients": "ingredients"
+                    "ingredients": [
+                        {
+                            "name": "taco shell"
+                        },
+                        {
+                            "name": "ground beef"
+                        }
+                    ]
                 }
             ]
         },
@@ -25,18 +55,15 @@
             "children": [
                 {
                     "name": "Breakfast",
-                    "information": "Chicken Tikka Masala",
-                    "ingredients": "ingredients"
+                    "information": "Chicken Tikka Masala"
                 },
                 {
                     "name": "Lunch",
-                    "information": "Pizza",
-                    "ingredients": "ingredients"
+                    "information": "Pizza"
                 },
                 {
                     "name": "Dinner",
-                    "information": "Tacos",
-                    "ingredients": "ingredients"
+                    "information": "Tacos"
                 }
             ]
         },
@@ -45,18 +72,15 @@
             "children": [
                 {
                     "name": "Breakfast",
-                    "information": "Chicken Tikka Masala",
-                    "ingredients": "ingredients"
+                    "information": "Chicken Tikka Masala"
                 },
                 {
                     "name": "Lunch",
-                    "information": "Pizza",
-                    "ingredients": "ingredients"
+                    "information": "Pizza"
                 },
                 {
                     "name": "Dinner",
-                    "information": "Tacos",
-                    "ingredients": "ingredients"
+                    "information": "Tacos"
                 }
             ]
         },
@@ -65,18 +89,15 @@
             "children": [
                 {
                     "name": "Breakfast",
-                    "information": "Chicken Tikka Masala",
-                    "ingredients": "ingredients"
+                    "information": "Chicken Tikka Masala"
                 },
                 {
                     "name": "Lunch",
-                    "information": "Pizza",
-                    "ingredients": "ingredients"
+                    "information": "Pizza"
                 },
                 {
                     "name": "Dinner",
-                    "information": "Tacos",
-                    "ingredients": "ingredients"
+                    "information": "Tacos"
                 }
             ]
         },
@@ -85,18 +106,15 @@
             "children": [
                 {
                     "name": "Breakfast",
-                    "information": "Chicken Tikka Masala",
-                    "ingredients": "ingredients"
+                    "information": "Chicken Tikka Masala"
                 },
                 {
                     "name": "Lunch",
-                    "information": "Pizza",
-                    "ingredients": "ingredients"
+                    "information": "Pizza"
                 },
                 {
                     "name": "Dinner",
-                    "information": "Tacos",
-                    "ingredients": "ingredients"
+                    "information": "Tacos"
                 }
             ]
         },
@@ -105,18 +123,15 @@
             "children": [
                 {
                     "name": "Breakfast",
-                    "information": "Chicken Tikka Masala",
-                    "ingredients": "ingredients"
+                    "information": "Chicken Tikka Masala"
                 },
                 {
                     "name": "Lunch",
-                    "information": "Pizza",
-                    "ingredients": "ingredients"
+                    "information": "Pizza"
                 },
                 {
                     "name": "Dinner",
-                    "information": "Tacos",
-                    "ingredients": "ingredients"
+                    "information": "Tacos"
                 }
             ]
         },
@@ -125,18 +140,15 @@
             "children": [
                 {
                     "name": "Breakfast",
-                    "information": "Chicken Tikka Masala",
-                    "ingredients": "ingredients"
+                    "information": "Chicken Tikka Masala"
                 },
                 {
                     "name": "Lunch",
-                    "information": "Pizza",
-                    "ingredients": "ingredients"
+                    "information": "Pizza"
                 },
                 {
                     "name": "Dinner",
-                    "information": "Tacos",
-                    "ingredients": "ingredients"
+                    "information": "Tacos"
                 }
             ]
         }
