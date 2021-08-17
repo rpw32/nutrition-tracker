@@ -21,5 +21,4 @@ export class ProductComponent implements OnInit {
     });
     toast.present();
   }
-
 }

@@ -31,10 +31,6 @@ export class Tab1Page {
     }
   }
 
-  toggleItem(i, j) {
-    this.information[i].children[j].open = !this.information[i].children[j].open;
-  }
-
   getFirstDayOfWeek()
   {
     const startDate = new Date();

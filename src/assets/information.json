@@ -8,13 +8,16 @@
                     "information": "Chicken Tikka Masala",
                     "ingredients": [
                         {
-                            "name": "greek yogurt"
+                            "name": "greek yogurt",
+                            "isOwned": "false"
                         },
                         {
-                            "name": "turmeric"
+                            "name": "turmeric",
+                            "isOwned": "false"
                         },
                         {
-                            "name": "heavy cream"
+                            "name": "heavy cream",
+                            "isOwned": "false"
                         }
                     ]
                 },
@@ -23,16 +26,20 @@
                     "information": "Pizza",
                     "ingredients": [
                         {
-                            "name": "pizza sauce"
+                            "name": "pizza sauce",
+                            "isOwned": "false"
                         },
                         {
-                            "name": "pepperoni"
+                            "name": "pepperoni",
+                            "isOwned": "false"
                         },
                         {
-                            "name": "cheese"
+                            "name": "cheese",
+                            "isOwned": "false"
                         },
                         {
-                            "name": "red peppers"
+                            "name": "red peppers",
+                            "isOwned": "false"
                         }
                     ]
                 },
@@ -41,10 +48,12 @@
                     "information": "Tacos",
                     "ingredients": [
                         {
-                            "name": "taco shell"
+                            "name": "taco shell",
+                            "isOwned": "false"
                         },
                         {
-                            "name": "ground beef"
+                            "name": "ground beef",
+                            "isOwned": "false"
                         }
                     ]
                 }
