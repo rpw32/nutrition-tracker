@@ -9,15 +9,15 @@
                     "ingredients": [
                         {
                             "name": "greek yogurt",
-                            "isOwned": "false"
+                            "isOwned": false
                         },
                         {
                             "name": "turmeric",
-                            "isOwned": "false"
+                            "isOwned": false
                         },
                         {
                             "name": "heavy cream",
-                            "isOwned": "false"
+                            "isOwned": false
                         }
                     ]
                 },
@@ -27,19 +27,19 @@
                     "ingredients": [
                         {
                             "name": "pizza sauce",
-                            "isOwned": "false"
+                            "isOwned": false
                         },
                         {
                             "name": "pepperoni",
-                            "isOwned": "false"
+                            "isOwned": false
                         },
                         {
                             "name": "cheese",
-                            "isOwned": "false"
+                            "isOwned": false
                         },
                         {
                             "name": "red peppers",
-                            "isOwned": "false"
+                            "isOwned": false
                         }
                     ]
                 },
@@ -49,11 +49,11 @@
                     "ingredients": [
                         {
                             "name": "taco shell",
-                            "isOwned": "false"
+                            "isOwned": false
                         },
                         {
                             "name": "ground beef",
-                            "isOwned": "false"
+                            "isOwned": false
                         }
                     ]
                 }
