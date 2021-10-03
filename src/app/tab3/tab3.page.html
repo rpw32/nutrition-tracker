@@ -1,17 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Grocery List
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Grocery List Displayed Here"></app-explore-container>
+  <div class="list" *ngIf="groceryList.length">
+    <ion-list *ngFor="let item of groceryList" class="ingredient">
+      <ion-item>
+        {{ item }}
+        <ion-button slot="end">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="list" *ngIf="!groceryList.length">
+    <h3>Nothing to see here! Try adding items to your grocery list!</h3>
+  </div>
 </ion-content>

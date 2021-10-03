@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GroceriesService } from '../services/groceries.service';
 
 @Component({
   selector: 'app-tab3',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  groceryList: any[];
+  constructor(groceries: GroceriesService) {
+    this.groceryList = groceries.groceryList;
+  }
 
 }

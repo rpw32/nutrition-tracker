@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
+import { NavController } from '@ionic/angular';
 import { Component } from '@angular/core';
-
-
+import { Tab3Page } from '../tab3/tab3.page';
 
 @Component({
   selector: 'app-tab1',
@@ -30,6 +30,7 @@ export class Tab1Page {
         .map(item => item.open = false);
     }
   }
+
 
   getFirstDayOfWeek()
   {
