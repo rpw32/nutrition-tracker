@@ -8,10 +8,10 @@
 
 <ion-content [fullscreen]="true">
   <div class="list" *ngIf="groceryList.length">
-    <ion-list *ngFor="let item of groceryList" class="ingredient">
+    <ion-list *ngFor="let item of groceryList; let i = index;" class="ingredient">
       <ion-item>
         {{ item }}
-        <ion-button slot="end">
+        <ion-button (click)="removeItem(i)" slot="end">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
       </ion-item>

@@ -13,4 +13,10 @@ export class Tab3Page {
     this.groceryList = groceries.groceryList;
   }
 
+  removeItem(i)
+  {
+    console.log(`Removing item! ${i}`);
+    this.groceryList.splice(i, 1);
+  }
+
 }
