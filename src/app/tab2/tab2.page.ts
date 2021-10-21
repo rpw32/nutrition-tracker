@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ModalPage } from './modal/modal.page';
 
 @Component({
   selector: 'app-tab2',
@@ -6,7 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  constructor(public modalController: ModalController) {}
 
-  constructor() {}
-
+  async presentModal(name: string) {
+    const modal = await this.modalController.create({
+      component: ModalPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        recipeName: name
+      }
+    });
+    return await modal.present();
+  }
 }
