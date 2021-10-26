@@ -8,12 +8,9 @@
 
 <ion-content>
   <h2>Ingredients:</h2>
-  <ion-list>
+  <ion-list *ngFor="let ing of recipeIngredients; let i = index">
     <ion-item>
-      <ion-input type = "text" placeholder="Ingredient 1"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type = "text" placeholder="Ingredient 2"></ion-input>
+      <ion-input type = "text" placeholder="{{ing.qty}} {{ing.unit}} of {{ing.name}}"></ion-input>
     </ion-item>
   </ion-list>
 </ion-content>

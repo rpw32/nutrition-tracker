@@ -1,16 +1,10 @@
-import { Ingredient } from './ingredient.model';
+import { Recipe } from './recipe.model';
 
-export interface Child {
+export interface Day {
    name: string;
-   information: string;
-   ingredients: Ingredient[];
-}
-
-export interface Item {
-   name: string;
-   children: Child[];
+   children: Recipe[];
 }
 
 export interface RootObject {
-   items: Item[];
+   items: Day[];
 }

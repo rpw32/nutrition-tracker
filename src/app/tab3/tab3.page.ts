@@ -9,6 +9,7 @@ import { GroceriesService } from '../services/groceries.service';
 export class Tab3Page {
 
   groceryList: any[];
+
   constructor(groceries: GroceriesService) {
     this.groceryList = groceries.groceryList;
   }

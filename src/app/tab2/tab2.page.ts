@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ModalPage } from './modal/modal.page';
+import { Recipe } from '../shared/models/recipe.model';
+import { Ingredient } from '../shared/models/ingredient.model';
 
 @Component({
   selector: 'app-tab2',
@@ -8,14 +11,22 @@ import { ModalPage } from './modal/modal.page';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  constructor(public modalController: ModalController) {}
 
-  async presentModal(name: string) {
+  recipes: Recipe[];
+
+  constructor(public modalController: ModalController, private http: HttpClient) {
+    this.http.get('assets/test-json/recipe.json').subscribe(data => {
+      this.recipes = data['recipes'];
+    });
+  }
+
+  async presentModal(name: string, ingredients: Ingredient[]) {
     const modal = await this.modalController.create({
       component: ModalPage,
-      cssClass: 'my-custom-class',
+      cssClass: 'modal-class',
       componentProps: {
-        recipeName: name
+        recipeName: name,
+        recipeIngredients: ingredients
       }
     });
     return await modal.present();

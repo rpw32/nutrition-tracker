@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
 
 @Component({
   selector: 'app-modal',
@@ -8,10 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ModalPage implements OnInit {
 
   @Input() recipeName: string;
+  @Input() recipeIngredients: Ingredient[];
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.recipeIngredients);
   }
 
 }

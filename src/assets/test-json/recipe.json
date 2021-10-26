@@ -1,0 +1,21 @@
+{
+   "recipes": [
+      {
+         "name": "Brussels & Cheese",
+         "ingredients": [
+            {
+               "name": "brussel sprouts",
+               "qty": "2",
+               "unit": "sprouts",
+               "isOwned": true
+            },
+            {
+               "name": "american cheese",
+               "qty": "3",
+               "unit": "slices",
+               "isOwned": false
+            }
+         ]
+      }
+   ]
+}
