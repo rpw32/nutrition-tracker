@@ -7,10 +7,12 @@
 </ion-header>
 
 <ion-content>
-  <h2>Ingredients:</h2>
-  <ion-list *ngFor="let ing of recipeIngredients; let i = index">
-    <ion-item>
-      <ion-input type = "text" placeholder="{{ing.qty}} {{ing.unit}} of {{ing.name}}"></ion-input>
-    </ion-item>
-  </ion-list>
+  <div class="ingredient-window">
+    <h2>Ingredients:</h2>
+    <ion-list *ngFor="let ing of recipeIngredients; let i = index">
+      <ion-item>
+        <ion-input type = "text" placeholder="{{ing.qty}} {{ing.unit}} of {{ing.name}}"></ion-input>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
