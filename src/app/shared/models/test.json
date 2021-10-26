@@ -1,0 +1,8 @@
+{
+   "ingredient": {
+      "name": "carrots",
+      "qty": "1",
+      "unit": "pound",
+      "isOwned": true
+   }
+}
