@@ -27,8 +27,15 @@ export class Tab2Page {
       componentProps: {
         recipeName: name,
         recipeIngredients: ingredients
-      }
+      },
+      swipeToClose: true
     });
+
+    modal.onWillDismiss().then((data) => {
+      const recipe = data['name'];
+      console.log(recipe);
+    });
+
     return await modal.present();
   }
 }
