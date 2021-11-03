@@ -24,8 +24,8 @@ export class ModalPage implements OnInit {
     this.lastInputSelected = i === this.recipeIngredients.length-1;
   }
 
-  saveRecipe(name: string) {
-    this.modal.dismiss(name);
+  saveRecipe(recipeIngredients: Ingredient[]) {
+    this.modal.dismiss(recipeIngredients);
   }
 
 }

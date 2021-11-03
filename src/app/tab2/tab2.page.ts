@@ -12,11 +12,14 @@ import { Ingredient } from '../shared/models/ingredient.model';
 })
 export class Tab2Page {
 
+  recipeMap: Map<string, Ingredient[]>;
   recipes: Recipe[];
 
   constructor(public modalController: ModalController, private http: HttpClient) {
     this.http.get('assets/test-json/recipe.json').subscribe(data => {
-      this.recipes = data['recipes'];
+      data['recipes'].forEach(item => {
+        console.log(this.recipeMap);
+       });
     });
   }
 
@@ -32,7 +35,7 @@ export class Tab2Page {
     });
 
     modal.onWillDismiss().then((data) => {
-      const recipe = data['name'];
+      const recipe = data['data'];
       console.log(recipe);
     });
 
