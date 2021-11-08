@@ -1,0 +1,51 @@
+<div class="row directionsContainer" [formGroup]="recipeFormGroup">
+  <h4>Directions
+    <app-action-button
+      [icon]="'add'"
+      [tip]="'Add Step'"
+      [classes]="'tooltipped btn-floating btn-small waves-effect waves-light cyan'"
+      [position]="'right'"
+      [pulse]="noSteps"
+      (action)="addStep()"></app-action-button>
+  </h4>
+  <div class="divider"></div>
+  <div
+    *ngIf="noSteps"
+    class="row">
+    <div class="col s12">
+      <div class="card-panel">
+        <p class="flow-text">
+          Your recipe needs directions...
+        </p>
+        <p class="flow-text subText">Click the button above to add a step.</p>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row"
+    *ngFor="let stepControl of recipeFormGroup.get('steps').controls; let i = index"
+    [formGroup]="stepControl">
+    <div class="input-field col s11">
+            <textarea
+              id="step"
+              name="step"
+              placeholder="The next step in cooking the recipe..."
+              formControlName="step"
+              [ngClass]="{'invalid': stepControl.controls['step'].touched && !stepControl.controls['step'].valid }"
+              required
+              class="materialize-textarea stepTextArea"></textarea>
+      <label
+        data-error="Step cannot be empty."
+        for="step"
+        class="active">Step {{i + 1}}.</label>
+    </div>
+    <div class="col s1 removeStepContainer">
+      <app-action-button
+        [icon]="'clear'"
+        [tip]="'Remove Step'"
+        [classes]="'tooltipped btn-floating btn-small waves-effect waves-light red'"
+        [position]="'right'"
+        (action)="removeStep(stepControl)"></app-action-button>
+    </div>
+  </div>
+</div>

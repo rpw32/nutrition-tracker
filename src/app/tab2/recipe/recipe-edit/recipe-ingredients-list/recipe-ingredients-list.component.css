@@ -1,0 +1,25 @@
+.ingredientsListItem {
+  padding-right: 10px !important;
+}
+
+app-action-button {
+  float: right;
+}
+
+p.subText {
+  font-size: 15px;
+}
+
+.ingredientRow {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.ingredientRow a {
+  float: right;
+}
+
+.ingredientRow .ingredientRemoveColumn {
+  margin-top: 15px;
+}
+

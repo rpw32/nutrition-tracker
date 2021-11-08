@@ -1,0 +1,22 @@
+<div [formGroup]="recipeFormGroup">
+  <div class="row">
+    <div class="col s12">
+      <img
+        src="{{imagePath}}"
+        class="materialboxed recipeImage"/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 input-field">
+      <input
+        placeholder="http://example.com/someimage.png"
+        id="imagePath"
+        type="text"
+        [(ngModel)]="imagePath"
+        formControlName="imagePath"
+        name="imagePath">
+      <label for="imagePath" class="active">Image URL</label>
+    </div>
+  </div>
+</div>

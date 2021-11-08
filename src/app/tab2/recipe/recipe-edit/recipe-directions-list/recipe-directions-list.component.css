@@ -1,0 +1,28 @@
+div.directionsContainer app-action-button {
+  float: right !important;
+}
+
+.directionsContainer .divider {
+  margin-bottom: 30px !important;
+}
+
+.directionsContainer .card-panel p.flow-text {
+  margin-top: 0;
+}
+
+.stepTextArea {
+  height: 130px;
+}
+
+.removeStepContainer {
+  padding-right: 0;
+  padding-left:0;
+}
+
+.removeStepContainer app-action-button {
+  float: right;
+}
+
+p.subText {
+  font-size: 15px;
+}

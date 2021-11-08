@@ -1,0 +1,50 @@
+<div [formGroup]="recipeFormGroup">
+
+  <div class="row">
+    <div class="col s12 input-field">
+      <input
+        id="name"
+        type="text"
+        name="name"
+        [ngClass]="{ 'invalid': recipeFormGroup.controls['name'].touched && !recipeFormGroup.controls['name'].valid }"
+        placeholder="French Onion Soup, Sweet and Sour Pork, etc."
+        formControlName="name">
+      <label
+        for="name"
+        data-error="Recipe name is required."
+        class="active">Recipe Name</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 input-field">
+      <textarea
+        id="description"
+        [ngClass]="{ 'invalid': recipeFormGroup.controls['description'].touched && !recipeFormGroup.controls['description'].valid }"
+        name="description"
+        placeholder="Something about the recipe..."
+        formControlName="description"
+        class="materialize-textarea descriptionTextArea"></textarea>
+      <label
+        for="description"
+        data-error="Recipe description is required."
+        class="active">Description</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 input-field">
+      <textarea
+        id="chefNotes"
+        [ngClass]="{ 'invalid': recipeFormGroup.controls['chefNotes'].touched && !recipeFormGroup.controls['chefNotes'].valid }"
+        name="chefNotes"
+        placeholder="Any chef notes go here..."
+        formControlName="chefNotes"
+        class="materialize-textarea descriptionTextArea"></textarea>
+      <label
+        for="chefNotes"
+        class="active">Chef Notes</label>
+    </div>
+  </div>
+
+</div>

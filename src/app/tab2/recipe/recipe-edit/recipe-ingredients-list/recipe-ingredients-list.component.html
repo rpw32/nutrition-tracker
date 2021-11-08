@@ -1,0 +1,79 @@
+<div class="row" [formGroup]="recipeFormGroup">
+  <div class="col s12">
+    <ul class="collection with-header" formArrayName="ingredients">
+      <li class="collection-header ingredientsListItem">
+        <h4>Ingredients
+          <app-action-button
+            [icon]="'add'"
+            [tip]="'Add Step'"
+            [classes]="'tooltipped btn-floating btn-small waves-effect waves-light cyan'"
+            [position]="'right'"
+            [pulse]="noIngredients"
+            (action)="addIngredient()"></app-action-button>
+        </h4>
+      </li>
+      <li
+        *ngIf="noIngredients"
+        class="row">
+        <div class="row">
+          <div class="col s12">
+            <p class="flow-text">Your recipe needs ingredients...</p>
+            <p class="flow-text subText">Click the button above to add an ingredient.</p>
+          </div>
+        </div>
+      </li>
+      <li
+        *ngFor="let ingredient of recipeFormGroup.get('ingredients').controls"
+        [formGroup]="ingredient">
+        <div class="row ingredientRow">
+          <div class="input-field col s6">
+            <input
+              placeholder="Flour, salt, sherry, etc."
+              id="ingredientName"
+              type="text"
+              [ngClass]="{'invalid': ingredient.controls['ingredientName'].touched && !ingredient.controls['ingredientName'].valid }"
+              formControlName="ingredientName">
+            <label
+              data-error="Name is required."
+              for="ingredientName"
+              class="active">Name</label>
+          </div>
+          <div class="input-field col s4">
+            <input
+              placeholder="3 Tbs., 1/2 Cup, etc."
+              id="ingredientAmount"
+              type="text"
+              name="ingredientAmount"
+              [ngClass]="{'invalid': ingredient.controls['ingredientAmount'].touched && !ingredient.controls['ingredientAmount'].valid }"
+              formControlName="ingredientAmount">
+            <label
+              data-error="Amount is required."
+              for="ingredientAmount"
+              class="active">Amount</label>
+          </div>
+          <div class="col s2 ingredientRemoveColumn">
+            <app-action-button
+              [icon]="'clear'"
+              [tip]="'Remove Ingredient'"
+              [classes]="'tooltipped btn-floating btn-small waves-effect waves-light red'"
+              [position]="'right'"
+              (action)="removeIngredient(ingredient)"></app-action-button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+             <textarea
+               id="ingredientNote"
+               name="ingredientNote"
+               placeholder="Ingredient note..."
+               formControlName="ingredientNote"
+               class="materialize-textarea"></textarea>
+            <label
+              for="ingredientNote"
+              class="active">Note</label>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

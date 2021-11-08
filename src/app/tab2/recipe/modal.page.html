@@ -1,16 +1,25 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      <ion-input type = "text" placeholder={{recipeName}}></ion-input>
+      <ion-input type = "text" placeholder={{recipe.name}}></ion-input>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <form
+  [formGroup]="recipeForm"
+  class="detail-container">
+
   <div class="modal-window">
     <div class="ingredient-window">
       <h2>Ingredients:</h2>
-      <ion-list>
+
+      <app-recipe-ingredients-list
+      [(recipe)]="recipe"
+      [recipeFormGroup]="recipeForm"></app-recipe-ingredients-list>
+      <!-- <ion-list>
         <div *ngFor="let ing of recipeIngredients; let i = index">
           <ion-item>
             <ion-input type = "text" placeholder="{{ing.qty}} {{ing.unit}} of {{ing.name}}" (ionFocus)="checkFocus(i)"></ion-input>
@@ -19,9 +28,10 @@
         <ion-item *ngIf="lastInputSelected">
           <ion-input type = "text" placeholder="Add an ingredient!"></ion-input>
         </ion-item>
-      </ion-list>
+      </ion-list> -->
     </div>
   
-    <ion-button (click)="saveRecipe(recipeIngredients)">SAVE RECIPE</ion-button>
+    <ion-button (click)="saveRecipe()">SAVE RECIPE</ion-button>
   </div>
+</form>
 </ion-content>

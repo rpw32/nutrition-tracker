@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'modal',
-    loadChildren: () => import('./tab2/modal/modal.module').then( m => m.ModalPageModule)
+    loadChildren: () => import('./tab2/recipe/modal.module').then( m => m.ModalPageModule)
   }
 
 ];
