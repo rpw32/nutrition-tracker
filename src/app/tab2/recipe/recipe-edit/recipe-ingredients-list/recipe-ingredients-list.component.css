@@ -2,10 +2,6 @@
   padding-right: 10px !important;
 }
 
-app-action-button {
-  float: right;
-}
-
 p.subText {
   font-size: 15px;
 }
@@ -22,4 +18,3 @@ p.subText {
 .ingredientRow .ingredientRemoveColumn {
   margin-top: 15px;
 }
-

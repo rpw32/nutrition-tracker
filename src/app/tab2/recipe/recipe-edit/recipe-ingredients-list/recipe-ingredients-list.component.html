@@ -1,5 +1,31 @@
 <div class="row" [formGroup]="recipeFormGroup">
-  <div class="col s12">
+  <ion-list>
+    <div *ngFor="let ingredient of recipeFormGroup.get('ingredients').controls"
+    [formGroup]="ingredient">
+      <ion-item>
+        <ion-input
+          type = "text"
+          id="ingredientAmount"
+          [ngClass]="{'invalid': ingredient.controls['ingredientAmount'].touched && !ingredient.controls['ingredientAmount'].valid }"
+          formControlName="ingredientAmount">
+        </ion-input>
+        <ion-input
+          type = "text"
+          id="ingredientUnits"
+          [ngClass]="{'invalid': ingredient.controls['ingredientUnits'].touched && !ingredient.controls['ingredientUnits'].valid }"
+          formControlName="ingredientUnits">
+        </ion-input>
+        <ion-label>of </ion-label> 
+        <ion-input
+          type = "text"
+          id="ingredientName"
+          [ngClass]="{'invalid': ingredient.controls['ingredientName'].touched && !ingredient.controls['ingredientName'].valid }"
+          formControlName="ingredientName">
+        </ion-input>
+      </ion-item>
+    </div>
+  </ion-list>
+  <!-- <div class="col s12">
     <ul class="collection with-header" formArrayName="ingredients">
       <li class="collection-header ingredientsListItem">
         <h4>Ingredients
@@ -75,5 +101,5 @@
         </div>
       </li>
     </ul>
-  </div>
+  </div> -->
 </div>

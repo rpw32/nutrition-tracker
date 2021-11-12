@@ -7,7 +7,6 @@
 </ion-header>
 
 <ion-content>
-
   <form
   [formGroup]="recipeForm"
   class="detail-container">
@@ -15,22 +14,11 @@
   <div class="modal-window">
     <div class="ingredient-window">
       <h2>Ingredients:</h2>
-
       <app-recipe-ingredients-list
       [(recipe)]="recipe"
       [recipeFormGroup]="recipeForm"></app-recipe-ingredients-list>
-      <!-- <ion-list>
-        <div *ngFor="let ing of recipeIngredients; let i = index">
-          <ion-item>
-            <ion-input type = "text" placeholder="{{ing.qty}} {{ing.unit}} of {{ing.name}}" (ionFocus)="checkFocus(i)"></ion-input>
-          </ion-item>
-        </div>
-        <ion-item *ngIf="lastInputSelected">
-          <ion-input type = "text" placeholder="Add an ingredient!"></ion-input>
-        </ion-item>
-      </ion-list> -->
     </div>
-  
+
     <ion-button (click)="saveRecipe()">SAVE RECIPE</ion-button>
   </div>
 </form>
