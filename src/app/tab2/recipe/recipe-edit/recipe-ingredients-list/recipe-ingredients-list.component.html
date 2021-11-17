@@ -1,4 +1,8 @@
-<div class="row" [formGroup]="recipeFormGroup">
+<div class="column" [formGroup]="recipeFormGroup">
+  <div class="row">
+    <h2>Ingredients:</h2>
+    <ion-button class="button" (click)="addIngredient()">ADD INGREDIENT</ion-button>
+  </div>
   <ion-list>
     <div *ngFor="let ingredient of recipeFormGroup.get('ingredients').controls"
     [formGroup]="ingredient">

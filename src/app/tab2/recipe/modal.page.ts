@@ -3,6 +3,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { ModalController } from '@ionic/angular';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recipe } from 'src/app/shared/models/recipe.model';
+import { RecipeIngredientsListComponent } from './recipe-edit/recipe-ingredients-list/recipe-ingredients-list.component';
 
 @Component({
   selector: 'app-modal',
@@ -28,7 +29,14 @@ export class ModalPage implements OnInit {
       ingredients: new FormArray([])
     });
 
-    console.log(this.recipe);
+    const idField = this.recipeForm.get('id') as FormControl;
+    idField.setValue(this.recipe.id ? this.recipe.id : 10);
+
+    const nameField = this.recipeForm.get('name') as FormControl;
+    nameField.setValue(this.recipe.name);
+
+    const informationField = this.recipeForm.get('information') as FormControl;
+    informationField.setValue(this.recipe.information ? this.recipe.information : 'Test');
   }
 
   onSubmit() {
@@ -38,30 +46,25 @@ export class ModalPage implements OnInit {
     }
 
     const value = this.recipeForm.value;
-    const recipe: Recipe = (
-      value.name,
-      value.information,
-      value.ingredients
-    );
-
-    value.ingredients.map(ingredient => {
-      recipe.ingredients.push(
-        ingredient.ingredientName,
-        ingredient.ingredientAmount,
-        ingredient.ingredientUnits,
-        ingredient.ingredientIsOwned);
+    console.log(value);
+    const recipe: Recipe = ({
+      id: value.id,
+      name: value.name,
+      information: value.information,
+      ingredients: value.ingredients
     });
 
     if (recipe.id) {
       //this.recipeService.updateRecipe(recipe);
       this.wasSaved = true;
+      this.setFormGroup(recipe);
       this.saveRecipe();
     } else {
       //this.recipeService.createRecipe(recipe);
       this.wasSaved = true;
+      this.setFormGroup(recipe);
       this.saveRecipe();
     }
-
   }
 
   private setFormGroup(recipe?: Recipe) {
@@ -70,6 +73,9 @@ export class ModalPage implements OnInit {
     }
 
     this.recipeForm.reset(recipe);
+
+    console.log(recipe);
+    console.log(this.recipe);
     this.recipe = recipe;
   }
 
@@ -81,21 +87,17 @@ export class ModalPage implements OnInit {
     this.modal.dismiss(this.recipe);
   }
 
-  // private showErrorToast(message: string): void {
-  //   window['Materialize'].toast(message, 4000, 'errorToast');
-  // }
-
   private verifyForm(): boolean {
     let isValid = this.recipeForm.valid;
 
     if ((this.recipeForm.get('ingredients') as FormArray).length <= 0) {
-      //this.showErrorToast('You must add ingredients');
+      console.log('You must add ingredients');
       isValid = false;
     }
 
     if (!this.recipeForm.valid) {
       this.markFormGroupTouched(this.recipeForm);
-      //this.showErrorToast('Make sure there are no empty fields');
+      console.log('Make sure there are no empty fields');
       isValid = false;
     }
 

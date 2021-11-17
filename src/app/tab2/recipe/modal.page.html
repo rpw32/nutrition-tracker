@@ -13,13 +13,12 @@
 
   <div class="modal-window">
     <div class="ingredient-window">
-      <h2>Ingredients:</h2>
       <app-recipe-ingredients-list
       [(recipe)]="recipe"
       [recipeFormGroup]="recipeForm"></app-recipe-ingredients-list>
     </div>
 
-    <ion-button (click)="saveRecipe()">SAVE RECIPE</ion-button>
+    <ion-button (click)="onSubmit()">SAVE RECIPE</ion-button>
   </div>
 </form>
 </ion-content>

@@ -1,20 +1,6 @@
-.ingredientsListItem {
-  padding-right: 10px !important;
-}
-
-p.subText {
-  font-size: 15px;
-}
-
-.ingredientRow {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.ingredientRow a {
-  float: right;
-}
-
-.ingredientRow .ingredientRemoveColumn {
-  margin-top: 15px;
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

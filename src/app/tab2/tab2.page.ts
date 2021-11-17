@@ -11,8 +11,6 @@ import { Ingredient } from '../shared/models/ingredient.model';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-
-  recipeMap: Map<string, Ingredient[]>;
   recipes: Recipe[];
 
   constructor(public modalController: ModalController, private http: HttpClient) {
@@ -32,7 +30,7 @@ export class Tab2Page {
     });
 
     modal.onWillDismiss().then((data) => {
-      const returnedRecipe = data['data'];
+      const returnedRecipe: Recipe = data['data'] as Recipe;
       console.log(returnedRecipe);
     });
 
