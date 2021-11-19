@@ -21,7 +21,6 @@ export class ModalPage implements OnInit {
   constructor(private modal: ModalController) { }
 
   ngOnInit() {
-
     this.recipeForm = new FormGroup({
       id: new FormControl(null),
       name: new FormControl(null, [Validators.required]),
@@ -45,14 +44,10 @@ export class ModalPage implements OnInit {
       return;
     }
 
-    const value = this.recipeForm.value;
-    console.log(value);
-    const recipe: Recipe = ({
-      id: value.id,
-      name: value.name,
-      information: value.information,
-      ingredients: value.ingredients
-    });
+    const recipe = new Recipe(this.recipeForm.value);
+    console.log(`Submitted Recipe:`);
+    console.log(recipe);
+    console.log(this.recipe);
 
     if (recipe.id) {
       //this.recipeService.updateRecipe(recipe);
@@ -74,8 +69,6 @@ export class ModalPage implements OnInit {
 
     this.recipeForm.reset(recipe);
 
-    console.log(recipe);
-    console.log(this.recipe);
     this.recipe = recipe;
   }
 

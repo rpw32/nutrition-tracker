@@ -63,7 +63,7 @@ export class RecipeIngredientsListComponent implements OnInit, OnChanges {
         ingredient ? ingredient.unit : null
       ),
       ingredientIsOwned: new FormControl(
-        ingredient ? ingredient.isOwned : false
+        ingredient ? ingredient.isOwned : null
       )
     });
   }
