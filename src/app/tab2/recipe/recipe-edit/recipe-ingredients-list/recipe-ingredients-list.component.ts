@@ -51,19 +51,20 @@ export class RecipeIngredientsListComponent implements OnInit, OnChanges {
 
   private createIngredientFormGroup(ingredient?: Ingredient): FormGroup {
     return new FormGroup({
-      ingredientName: new FormControl(
+      name: new FormControl(
         ingredient ? ingredient.name : null,
         [Validators.required]
       ),
-      ingredientAmount: new FormControl(
+      qty: new FormControl(
         ingredient ? ingredient.qty : null,
         [Validators.required]
       ),
-      ingredientUnits: new FormControl(
-        ingredient ? ingredient.unit : null
+      unit: new FormControl(
+        ingredient ? ingredient.unit : null,
+        [Validators.required]
       ),
-      ingredientIsOwned: new FormControl(
-        ingredient ? ingredient.isOwned : null
+      isOwned: new FormControl(
+        ingredient ? ingredient.isOwned : false
       )
     });
   }

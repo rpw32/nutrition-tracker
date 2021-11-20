@@ -9,6 +9,7 @@ export class Recipe {
 
    public constructor(init?: Partial<Recipe>) {
       Object.assign(this, init);
-      this.ingredients = init.ingredients as Ingredient[];
+      this.ingredients = init.ingredients.map(ingredient => new Ingredient(ingredient));
+      return this;
   }
 }

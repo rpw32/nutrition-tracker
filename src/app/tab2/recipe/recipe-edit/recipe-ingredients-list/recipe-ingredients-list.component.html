@@ -9,22 +9,27 @@
       <ion-item>
         <ion-input
           type = "text"
-          id="ingredientAmount"
-          [ngClass]="{'invalid': ingredient.controls['ingredientAmount'].touched && !ingredient.controls['ingredientAmount'].valid }"
-          formControlName="ingredientAmount">
+          id="qty"
+          placeholder="2"
+          [ngClass]="{'invalid': ingredient.controls['qty'].touched && !ingredient.controls['qty'].valid }"
+          formControlName="qty">
         </ion-input>
         <ion-input
           type = "text"
-          id="ingredientUnits"
-          [ngClass]="{'invalid': ingredient.controls['ingredientUnits'].touched && !ingredient.controls['ingredientUnits'].valid }"
-          formControlName="ingredientUnits">
+          id="unit"
+          placeholder="tbsp"
+          [ngClass]="{'invalid': ingredient.controls['unit'].touched && !ingredient.controls['unit'].valid }"
+          formControlName="unit">
         </ion-input>
-        <ion-label>of </ion-label> 
+        <ion-label
+        [ngClass]="{'placeholder': !ingredient.controls['qty'].valid && !ingredient.controls['unit'].valid }">
+          of </ion-label> 
         <ion-input
           type = "text"
-          id="ingredientName"
-          [ngClass]="{'invalid': ingredient.controls['ingredientName'].touched && !ingredient.controls['ingredientName'].valid }"
-          formControlName="ingredientName">
+          id="name"
+          placeholder="butter"
+          [ngClass]="{'invalid': ingredient.controls['name'].touched && !ingredient.controls['name'].valid }"
+          formControlName="name">
         </ion-input>
       </ion-item>
     </div>

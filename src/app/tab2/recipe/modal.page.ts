@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { ModalController } from '@ionic/angular';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeIngredientsListComponent } from './recipe-edit/recipe-ingredients-list/recipe-ingredients-list.component';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -13,6 +14,7 @@ import { RecipeIngredientsListComponent } from './recipe-edit/recipe-ingredients
 export class ModalPage implements OnInit {
 
   @Input() recipe: Recipe;
+
   public recipeForm: FormGroup;
 
   lastInputSelected = false;
@@ -45,20 +47,17 @@ export class ModalPage implements OnInit {
     }
 
     const recipe = new Recipe(this.recipeForm.value);
-    console.log(`Submitted Recipe:`);
+
     console.log(recipe);
-    console.log(this.recipe);
 
     if (recipe.id) {
       //this.recipeService.updateRecipe(recipe);
       this.wasSaved = true;
-      this.setFormGroup(recipe);
-      this.saveRecipe();
+      this.saveRecipe(recipe);
     } else {
       //this.recipeService.createRecipe(recipe);
       this.wasSaved = true;
-      this.setFormGroup(recipe);
-      this.saveRecipe();
+      this.saveRecipe(recipe);
     }
   }
 
@@ -76,7 +75,8 @@ export class ModalPage implements OnInit {
     this.lastInputSelected = i === this.recipe.ingredients.length-1;
   }
 
-  private saveRecipe() {
+  private saveRecipe(recipe: Recipe) {
+    this.recipe = recipe;
     this.modal.dismiss(this.recipe);
   }
 

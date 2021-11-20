@@ -29,11 +29,27 @@ export class Tab2Page {
       swipeToClose: true
     });
 
-    modal.onWillDismiss().then((data) => {
-      const returnedRecipe: Recipe = data['data'] as Recipe;
-      console.log(returnedRecipe);
+    modal.onWillDismiss().then((recipeData) => {
+      const returnedRecipe: Recipe = recipeData.data as Recipe;
+      if (returnedRecipe)
+      {
+        this.updateRecipes(returnedRecipe);
+      }
     });
 
     return await modal.present();
+  }
+
+  updateRecipes(recipeUpdate: Recipe) {
+    const updateItem = this.recipes.find(this.findIndexToUpdate, recipeUpdate.id);
+    const index = this.recipes.indexOf(updateItem);
+
+    this.recipes[index] = recipeUpdate;
+
+    console.log(this.recipes);
+  }
+
+  findIndexToUpdate(newItem) {
+    return newItem.id === this;
   }
 }

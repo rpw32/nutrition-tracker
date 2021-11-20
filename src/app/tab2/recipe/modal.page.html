@@ -1,7 +1,15 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      <ion-input type = "text" placeholder={{recipe.name}}></ion-input>
+      <div [formGroup]="recipeForm">
+        <ion-input 
+        type = "text"
+        id="name"
+        placeholder="Enter a name..."
+        [ngClass]="{'invalid': recipeForm.controls['name'].touched && !recipeForm.controls['name'].valid }"
+        formControlName="name"></ion-input>
+        <!-- <ion-input type = "text" placeholder={{recipe.name}}></ion-input> -->
+      </div>
     </ion-title>
   </ion-toolbar>
 </ion-header>

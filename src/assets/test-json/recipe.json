@@ -1,7 +1,9 @@
 {
    "recipes": [
       {
+         "id": 10,
          "name": "Brussels & Cheese",
+         "information": "A simple dish from old times",
          "ingredients": [
             {
                "name": "brussel sprouts",

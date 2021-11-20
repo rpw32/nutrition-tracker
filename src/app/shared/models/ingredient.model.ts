@@ -1,3 +1,4 @@
+
 export class Ingredient {
    name: string;
    qty: string;
@@ -5,6 +6,10 @@ export class Ingredient {
    isOwned: boolean;
 
    constructor(init?: Partial<Ingredient>) {
-      Object.assign(this, init);
+      this.name = init.name;
+      this.qty = init.qty;
+      this.unit = init.unit;
+      this.isOwned = init.isOwned;
+      return this;
    }
 }
