@@ -1,10 +1,8 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { ModalController } from '@ionic/angular';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { RecipeIngredientsListComponent } from './recipe-edit/recipe-ingredients-list/recipe-ingredients-list.component';
-import { EventEmitter } from '@angular/core';
+import { RecipeService } from 'src/app/services/recipe/recipe.service';
 
 @Component({
   selector: 'app-modal',
@@ -20,7 +18,7 @@ export class ModalPage implements OnInit {
   lastInputSelected = false;
   wasSaved: boolean;
 
-  constructor(private modal: ModalController) { }
+  constructor(private modal: ModalController, private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.recipeForm = new FormGroup({
@@ -30,14 +28,7 @@ export class ModalPage implements OnInit {
       ingredients: new FormArray([])
     });
 
-    const idField = this.recipeForm.get('id') as FormControl;
-    idField.setValue(this.recipe.id ? this.recipe.id : 10);
-
-    const nameField = this.recipeForm.get('name') as FormControl;
-    nameField.setValue(this.recipe.name);
-
-    const informationField = this.recipeForm.get('information') as FormControl;
-    informationField.setValue(this.recipe.information ? this.recipe.information : 'Test');
+    this.setFormGroup(this.recipe);
   }
 
   onSubmit() {
@@ -46,19 +37,21 @@ export class ModalPage implements OnInit {
       return;
     }
 
-    const recipe = new Recipe(this.recipeForm.value);
+    if (this.recipeForm.dirty) {
+      const recipe = new Recipe(this.recipeForm.value);
+      this.recipe = recipe;
+  
+      let response = this.recipeService.addRecipe(recipe).subscribe();
+      console.log(response);
 
-    console.log(recipe);
-
-    if (recipe.id) {
-      //this.recipeService.updateRecipe(recipe);
-      this.wasSaved = true;
-      this.saveRecipe(recipe);
-    } else {
-      //this.recipeService.createRecipe(recipe);
-      this.wasSaved = true;
-      this.saveRecipe(recipe);
+      if (recipe.id) {
+        //this.recipeService.updateRecipe(recipe);
+      } else {
+      }
     }
+
+    this.wasSaved = true;
+    this.saveRecipe();
   }
 
   private setFormGroup(recipe?: Recipe) {
@@ -66,17 +59,18 @@ export class ModalPage implements OnInit {
       return;
     }
 
-    this.recipeForm.reset(recipe);
+    const idField = this.recipeForm.get('id') as FormControl;
+    idField.setValue(this.recipe.id ? this.recipe.id : 10);
 
-    this.recipe = recipe;
+    const nameField = this.recipeForm.get('name') as FormControl;
+    nameField.setValue(this.recipe.name);
+
+    const informationField = this.recipeForm.get('information') as FormControl;
+    informationField.setValue(this.recipe.information ? this.recipe.information : 'Test');
+
   }
 
-  private checkFocus(i: number) {
-    this.lastInputSelected = i === this.recipe.ingredients.length-1;
-  }
-
-  private saveRecipe(recipe: Recipe) {
-    this.recipe = recipe;
+  private saveRecipe() {
     this.modal.dismiss(this.recipe);
   }
 
@@ -101,14 +95,14 @@ export class ModalPage implements OnInit {
 * Marks all controls in a form group as touched
 * @param formGroup - The group to caress..hah
 */
-     private markFormGroupTouched(formGroup: FormGroup) {
-      (Object as any).values(formGroup.controls).forEach(control => {
-        control.markAsTouched();
+  private markFormGroupTouched(formGroup: FormGroup) {
+  (Object as any).values(formGroup.controls).forEach(control => {
+    control.markAsTouched();
 
-        if (control.controls) {
-          control.controls.forEach(c => this.markFormGroupTouched(c));
-        }
-      });
-     }
+    if (control.controls) {
+      control.controls.forEach(c => this.markFormGroupTouched(c));
+    }
+  });
+  }
 
 }

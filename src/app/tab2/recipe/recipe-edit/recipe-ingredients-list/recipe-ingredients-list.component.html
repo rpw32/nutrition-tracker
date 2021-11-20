@@ -31,6 +31,7 @@
           [ngClass]="{'invalid': ingredient.controls['name'].touched && !ingredient.controls['name'].valid }"
           formControlName="name">
         </ion-input>
+        <ion-button (click)="removeIngredient(ingredient)">REMOVE</ion-button>
       </ion-item>
     </div>
   </ion-list>

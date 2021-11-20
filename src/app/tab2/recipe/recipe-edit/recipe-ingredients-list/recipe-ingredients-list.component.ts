@@ -1,23 +1,20 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Ingredient} from '../../../../shared/models/ingredient.model';
-import {Recipe} from '../../../../shared/models/recipe.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Ingredient } from '../../../../shared/models/ingredient.model';
+import { Recipe } from '../../../../shared/models/recipe.model';
 
 @Component({
   selector: 'app-recipe-ingredients-list',
   templateUrl: './recipe-ingredients-list.component.html',
   styleUrls: ['./recipe-ingredients-list.component.css']
 })
-export class RecipeIngredientsListComponent implements OnInit, OnChanges {
+export class RecipeIngredientsListComponent implements OnInit {
   @Input() recipeFormGroup: FormGroup;
   @Input() recipe: Recipe;
 
   constructor() { }
 
   ngOnInit() {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
     if (!this.recipe || !this.recipe.ingredients) {
       return;
     }
@@ -25,10 +22,6 @@ export class RecipeIngredientsListComponent implements OnInit, OnChanges {
     this.recipe.ingredients.forEach(i => {
       this.addIngredient(this.createIngredientFormGroup(i));
     });
-  }
-
-  get noIngredients(): boolean {
-    return (this.recipeFormGroup.get('ingredients') as FormArray).controls.length === 0;
   }
 
   addIngredient(ingredient: FormGroup) {
