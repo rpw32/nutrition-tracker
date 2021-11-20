@@ -44,4 +44,36 @@ export class RecipeService {
       )
     );
   }
+
+  updateRecipe(recipe: Recipe): Observable<any> {
+    const paramString = JSON.stringify(recipe);
+    const paramObj = JSON.parse(paramString);
+
+    console.log('Entered the updateRecipe function');
+
+    // set headers
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    console.log('returning api');
+    // submit form to backend to get name by email
+    return this.api.updateRecipe(paramObj, httpOptions).pipe(
+      map(
+        data => {
+          if  ((data !== -1) && (data != null)){
+            console.log('Success');// successfully found a name in the db for this email
+            return data;
+          }
+          else {
+            // couldn't find a name
+            console.log('Failure');
+            return false;
+          }
+        },
+      )
+    );
+  }
 }
