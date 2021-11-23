@@ -15,14 +15,10 @@ export class ModalPage implements OnInit {
 
   public recipeForm: FormGroup;
 
-  lastInputSelected = false;
-  wasSaved: boolean;
-
   constructor(private modal: ModalController, private recipeService: RecipeService) { }
 
   ngOnInit() {
     this.recipeForm = new FormGroup({
-      id: new FormControl(null),
       name: new FormControl(null, [Validators.required]),
       information: new FormControl(null, [Validators.required]),
       ingredients: new FormArray([])
@@ -38,29 +34,28 @@ export class ModalPage implements OnInit {
     }
 
     if (this.recipeForm.dirty) {
-      const recipe = new Recipe(this.recipeForm.value);
+      let recipe = new Recipe(this.recipeForm.value);
+      recipe._id = this.recipe._id;
       this.recipe = recipe;
-  
-      let response = this.recipeService.addRecipe(recipe).subscribe();
-      console.log(response);
 
-      if (recipe.id) {
-        //this.recipeService.updateRecipe(recipe);
+      console.log(recipe);
+      
+      if (recipe._id) {
+        let response = this.recipeService.updateRecipe(recipe).subscribe()
+        console.log(response);
       } else {
+        let response = this.recipeService.addRecipe(recipe).subscribe();
+        console.log(response);
       }
     }
 
-    this.wasSaved = true;
-    this.saveRecipe();
+    this.saveRecipe(this.recipeForm.dirty);
   }
 
   private setFormGroup(recipe?: Recipe) {
     if (!recipe) {
       return;
     }
-
-    const idField = this.recipeForm.get('id') as FormControl;
-    idField.setValue(this.recipe.id ? this.recipe.id : 10);
 
     const nameField = this.recipeForm.get('name') as FormControl;
     nameField.setValue(this.recipe.name);
@@ -70,8 +65,8 @@ export class ModalPage implements OnInit {
 
   }
 
-  private saveRecipe() {
-    this.modal.dismiss(this.recipe);
+  private saveRecipe(recipeChanged: Boolean) {
+    this.modal.dismiss(recipeChanged ? this.recipe : null);
   }
 
   private verifyForm(): boolean {

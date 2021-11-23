@@ -15,7 +15,10 @@ export class Tab2Page {
 
   constructor(public modalController: ModalController, private http: HttpClient) {
     this.http.get('assets/test-json/recipe.json').subscribe(data => {
-      this.recipes = data['recipes'];
+      this.recipes = data['recipes'].map(recipe => {
+        return new Recipe(recipe);
+      });
+      console.log(this.recipes);
     });
   }
 
@@ -29,11 +32,14 @@ export class Tab2Page {
       swipeToClose: true
     });
 
-    modal.onWillDismiss().then((recipeData) => {
-      const returnedRecipe: Recipe = recipeData.data as Recipe;
-      if (returnedRecipe)
+    modal.onWillDismiss().then((recipeData?) => {
+      if (recipeData)
       {
-        this.updateRecipes(returnedRecipe);
+        const returnedRecipe: Recipe = recipeData.data as Recipe;
+        if (returnedRecipe)
+        {
+          this.updateRecipes(returnedRecipe);
+        }
       }
     });
 
@@ -41,10 +47,13 @@ export class Tab2Page {
   }
 
   updateRecipes(recipeUpdate: Recipe) {
-    const updateItem = this.recipes.find(this.findIndexToUpdate, recipeUpdate.id);
+    const updateItem = this.recipes.find(this.findIndexToUpdate, recipeUpdate._id);
     const index = this.recipes.indexOf(updateItem);
 
-    this.recipes[index] = recipeUpdate;
+    if (index !== -1)
+    {
+      this.recipes[index] = recipeUpdate;
+    }
 
     console.log(this.recipes);
   }

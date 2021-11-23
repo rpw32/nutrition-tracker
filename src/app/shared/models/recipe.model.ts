@@ -1,8 +1,7 @@
-import { RecipeIngredientsListComponent } from 'src/app/tab2/recipe/recipe-edit/recipe-ingredients-list/recipe-ingredients-list.component';
 import { Ingredient } from './ingredient.model';
 
 export class Recipe {
-   id: any;
+   _id: any;
    name: string;
    information: string;
    ingredients: Ingredient[];
