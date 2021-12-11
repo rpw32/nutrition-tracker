@@ -1,21 +1,29 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { RecipeService } from '../services/recipe/recipe.service';
+import { Component, OnInit } from '@angular/core';
+import { Recipe } from '../shared/models/recipe.model';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements OnInit {
+  recipes: Recipe[];
   information: any[];
   startEnd = this.getFirstDayOfWeek();
 
   automaticClose = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public recipeService: RecipeService) {
+    console.log(this.recipes);
     this.http.get('assets/test-json/information.json').subscribe(data => {
       this.information = data['items'];
     });
+  }
+
+  ngOnInit() {
+    this.recipes = this.recipeService.recipes;
   }
 
   toggleSection(i) {

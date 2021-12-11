@@ -1,4 +1,4 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,16 @@ import { ApiService } from '../api.service';
 })
 export class RecipeService {
 
-  constructor(private api: ApiService) { }
+  recipes: Recipe[];
+
+  constructor(private api: ApiService, private http: HttpClient) {
+    this.http.get('assets/test-json/recipe.json').subscribe(data => {
+      this.recipes = data['recipes'].map(recipe => {
+        return new Recipe(recipe);
+      });
+      console.log(this.recipes);
+    });
+   }
 
   addRecipe(recipe: Recipe): Observable<any> {
 

@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { ModalPage } from './recipe/modal.page';
 import { Recipe } from '../shared/models/recipe.model';
 import { Ingredient } from '../shared/models/ingredient.model';
+import { RecipeService } from '../services/recipe/recipe.service';
 
 @Component({
   selector: 'app-tab2',
@@ -13,13 +14,8 @@ import { Ingredient } from '../shared/models/ingredient.model';
 export class Tab2Page {
   recipes: Recipe[];
 
-  constructor(public modalController: ModalController, private http: HttpClient) {
-    this.http.get('assets/test-json/recipe.json').subscribe(data => {
-      this.recipes = data['recipes'].map(recipe => {
-        return new Recipe(recipe);
-      });
-      console.log(this.recipes);
-    });
+  constructor(public modalController: ModalController, private http: HttpClient, private recipeService: RecipeService) {
+    this.recipes = recipeService.recipes;
   }
 
   async presentModal(recipe: Recipe) {

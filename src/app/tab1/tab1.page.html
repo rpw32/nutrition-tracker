@@ -27,6 +27,13 @@
 
     <div *ngIf="item.children && item.open">
       <ion-list *ngFor="let child of item.children; let j = index;" lines="none" class="child-list">
+        <ion-item>
+          <ion-select>
+            <div *ngFor="let recipe of recipes">            
+              <ion-select-option value=recipe>{{recipe.name}}</ion-select-option>
+            </div>
+          </ion-select>
+        </ion-item>
         <app-product [product]="child" *ngIf="!child.children"></app-product>
       </ion-list>
     </div>
