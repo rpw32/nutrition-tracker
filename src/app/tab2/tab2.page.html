@@ -11,7 +11,7 @@
 
 <ion-content [fullscreen]="true">
   <div>
-    <ion-list *ngFor="let item of recipes; let i = index;">
+    <ion-list *ngFor="let item of recipes">
       <ion-item>
         {{ item.name }}
         <ion-button (click)="presentModal(item)" slot="end">

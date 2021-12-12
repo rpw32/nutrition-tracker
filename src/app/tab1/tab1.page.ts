@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../services/recipe/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/models/recipe.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tab1',
@@ -9,21 +10,25 @@ import { Recipe } from '../shared/models/recipe.model';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
+  _subscription: Subscription;
   recipes: Recipe[];
   information: any[];
   startEnd = this.getFirstDayOfWeek();
 
   automaticClose = false;
 
-  constructor(private http: HttpClient, public recipeService: RecipeService) {
-    console.log(this.recipes);
+  constructor(private http: HttpClient, private recipeService: RecipeService) {
     this.http.get('assets/test-json/information.json').subscribe(data => {
       this.information = data['items'];
     });
   }
 
-  ngOnInit() {
-    this.recipes = this.recipeService.recipes;
+  ngOnInit()
+  {
+    this._subscription = this.recipeService.recipesChange.subscribe((value) => {
+      this.recipes = value;
+    });
+    console.log(this.recipes);
   }
 
   toggleSection(i) {

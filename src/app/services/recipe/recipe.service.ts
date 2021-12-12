@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, OnChanges, OnDestroy } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { ApiService } from '../api.service';
@@ -8,9 +8,10 @@ import { ApiService } from '../api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeService {
+export class RecipeService implements OnChanges {
 
   recipes: Recipe[];
+  recipesChange: Subject<Recipe[]> = new Subject<Recipe[]>();
 
   constructor(private api: ApiService, private http: HttpClient) {
     this.http.get('assets/test-json/recipe.json').subscribe(data => {
@@ -18,8 +19,20 @@ export class RecipeService {
         return new Recipe(recipe);
       });
       console.log(this.recipes);
+      this.updateRecipeSusbcribers();
     });
    }
+
+  ngOnChanges()
+  {
+    console.log('Recipe onChanges activated');
+    this.updateRecipeSusbcribers();
+  }
+
+  updateRecipeSusbcribers()
+  {
+    this.recipesChange.next(this.recipes);
+  }
 
   addRecipe(recipe: Recipe): Observable<any> {
 
