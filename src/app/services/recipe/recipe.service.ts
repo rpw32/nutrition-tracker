@@ -21,6 +21,9 @@ export class RecipeService implements OnChanges {
       console.log(this.recipes);
       this.updateRecipeSusbcribers();
     });
+
+    let response = this.get50Recipes().subscribe();
+    console.log(response);
    }
 
   ngOnChanges()
@@ -32,6 +35,34 @@ export class RecipeService implements OnChanges {
   updateRecipeSusbcribers()
   {
     this.recipesChange.next(this.recipes);
+  }
+
+  get50Recipes(): Observable<any> {
+    console.log('Entered the get50Recipes function');
+
+    // set headers
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    // submit form to backend to get name by email
+    return this.api.get50Recipes(httpOptions).pipe(
+      map(
+        data => {
+          if  ((data !== -1) && (data != null)){
+            console.log('Success');// successfully retrieved recipes
+            return data;
+          }
+          else {
+            // couldn't find a name
+            console.log('Failure');
+            return false;
+          }
+        },
+      )
+    );
   }
 
   addRecipe(recipe: Recipe): Observable<any> {
