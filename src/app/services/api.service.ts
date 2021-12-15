@@ -18,7 +18,7 @@ export class ApiService {
       map(
         data => {
           console.log('Recipe data retrieved! Data returned: ', data);
-          return 0;
+          return data;
         }
       ),
       catchError(

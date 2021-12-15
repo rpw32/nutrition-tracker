@@ -22,8 +22,12 @@ export class RecipeService implements OnChanges {
       this.updateRecipeSusbcribers();
     });
 
-    let response = this.get50Recipes().subscribe();
-    console.log(response);
+    let response = this.get50Recipes().subscribe(data => {
+      let recipeResponse = data['recipes'] as string;
+      console.log(recipeResponse);
+      let parsed = JSON.parse(recipeResponse)
+      console.log(parsed);
+    });
    }
 
   ngOnChanges()
