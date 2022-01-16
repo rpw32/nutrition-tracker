@@ -55,5 +55,26 @@ export class Tab1Page implements OnInit {
     return [startDate, endDate];
   }
 
+  changedRecipe(day: string, recipe: Recipe)
+  {
+    const updateItem = this.information.find(this.findIndexToUpdate, day);
+    const index = this.information.indexOf(updateItem);
+
+    if (index !== -1)
+    {
+      console.log(recipe);
+      this.information[index]['children'][0]['information'] = recipe;
+      console.log('changed');
+    }
+    
+    console.log(this.information);
+    console.log(day);
+    console.log(recipe);
+  }
+
+  findIndexToUpdate(newItem) {
+    return newItem['name'] === this;
+  }
+
 }
 

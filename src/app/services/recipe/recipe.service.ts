@@ -8,31 +8,18 @@ import { ApiService } from '../api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeService implements OnChanges {
+export class RecipeService {
 
   recipes: Recipe[];
   recipesChange: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
 
-  constructor(private api: ApiService, private http: HttpClient) {
-    // this.http.get('assets/test-json/recipe.json').subscribe(data => {
-    //   this.recipes = data['recipes'].map(recipe => {
-    //     return new Recipe(recipe);
-    //   });
-    //   console.log(this.recipes);
-    // });
-
+  constructor(private api: ApiService) {
     let response = this.get50Recipes().subscribe(data => {
       let recipeResponse = data['recipes'] as string;
       this.recipes = JSON.parse(recipeResponse) as Recipe[];
       this.updateRecipeSusbcribers();
     });
    }
-
-  ngOnChanges()
-  {
-    console.log('Recipe onChanges activated');
-    this.updateRecipeSusbcribers();
-  }
 
   updateRecipeSusbcribers()
   {
@@ -88,6 +75,11 @@ export class RecipeService implements OnChanges {
         data => {
           if  ((data !== -1) && (data != null)){
             console.log('Success');// successfully found a name in the db for this email
+            if (data['_id'])
+            {
+              recipe['_id'] = data['_id'];
+              this.updateRecipeArray(recipe);
+            }
             return data;
           }
           else {
@@ -121,6 +113,10 @@ export class RecipeService implements OnChanges {
           if  ((data !== -1) && (data != null)){
             console.log('Success');// successfully found a name in the db for this email
             console.log(data);
+            if (recipe)
+            {
+              this.updateRecipeArray(recipe);
+            }
             return data;
           }
           else {
@@ -132,4 +128,29 @@ export class RecipeService implements OnChanges {
       )
     );
   }
+
+  /// UTILITY FUNCTIONS
+  /// {
+    updateRecipeArray(recipeUpdate: Recipe) {
+      const updateItem = this.recipes.find(this.findIndexToUpdate, recipeUpdate._id);
+      const index = this.recipes.indexOf(updateItem);
+  
+      if (index !== -1)
+      {
+        this.recipes[index] = recipeUpdate;
+      }
+      else
+      {
+        this.recipes.push(recipeUpdate);
+      }
+  
+      this.updateRecipeSusbcribers();
+      console.log(this.recipes);
+    }
+  
+  
+    findIndexToUpdate(newItem) {
+      return newItem._id === this;
+    }
+  /// }
 }

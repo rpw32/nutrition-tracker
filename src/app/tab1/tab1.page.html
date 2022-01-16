@@ -28,10 +28,9 @@
     <div *ngIf="item.children && item.open">
       <ion-list *ngFor="let child of item.children; let j = index;" lines="none" class="child-list">
         <ion-item>
-          <ion-select>
-            <div *ngFor="let recipe of recipes; let k = index; trackBy: trackByIndex">            
-              <ion-select-option value=recipes[k]._id>{{recipe.name}}</ion-select-option>
-            </div>
+          <!-- TODO: Change this function so that it properly sends the selected recipe out to the page to update the json -->
+          <ion-select (ionChange)="changedRecipe(item['name'], child)" placeholder="Select a meal...">          
+            <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
           </ion-select>
         </ion-item>
         <app-product [product]="child" *ngIf="!child.children"></app-product>
