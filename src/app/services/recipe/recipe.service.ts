@@ -14,19 +14,17 @@ export class RecipeService implements OnChanges {
   recipesChange: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
 
   constructor(private api: ApiService, private http: HttpClient) {
-    this.http.get('assets/test-json/recipe.json').subscribe(data => {
-      this.recipes = data['recipes'].map(recipe => {
-        return new Recipe(recipe);
-      });
-      console.log(this.recipes);
-      this.updateRecipeSusbcribers();
-    });
+    // this.http.get('assets/test-json/recipe.json').subscribe(data => {
+    //   this.recipes = data['recipes'].map(recipe => {
+    //     return new Recipe(recipe);
+    //   });
+    //   console.log(this.recipes);
+    // });
 
     let response = this.get50Recipes().subscribe(data => {
       let recipeResponse = data['recipes'] as string;
-      console.log(recipeResponse);
-      let parsed = JSON.parse(recipeResponse)
-      console.log(parsed);
+      this.recipes = JSON.parse(recipeResponse) as Recipe[];
+      this.updateRecipeSusbcribers();
     });
    }
 
@@ -122,6 +120,7 @@ export class RecipeService implements OnChanges {
         data => {
           if  ((data !== -1) && (data != null)){
             console.log('Success');// successfully found a name in the db for this email
+            console.log(data);
             return data;
           }
           else {

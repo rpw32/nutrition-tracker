@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
@@ -39,7 +39,7 @@ export class ApiService {
       map(
         data => {
           console.log('Posted new recipe data! Data posted: ', data);
-          return 0;
+          return data;
         }
       ),
       catchError(
