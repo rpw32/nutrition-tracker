@@ -15,25 +15,25 @@
 
 <ion-content>
 
-  <ion-list *ngFor="let item of information; let i = index;" class="accordion-list" lines="none" detail="false" no-padding>
+  <ion-list *ngFor="let day of recipeSchedule; let i = index;" class="accordion-list" lines="none" detail="false" no-padding>
 
-    <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': item.open, 'section': !item.open}">
-      <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!item.open"></ion-icon>
-      <ion-icon slot="end" name="chevron-down-outline" *ngIf="item.open"></ion-icon>
+    <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': day.open, 'section': !day.open}">
+      <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!day.open"></ion-icon>
+      <ion-icon slot="end" name="chevron-down-outline" *ngIf="day.open"></ion-icon>
       <ion-label>
-        {{ item.name }}
+        {{ day.name }}
       </ion-label>
     </ion-item>
 
-    <div *ngIf="item.children && item.open">
-      <ion-list *ngFor="let child of item.children; let j = index;" lines="none" class="child-list">
+    <div *ngIf="day.recipes && day.open">
+      <ion-list *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: trackById" lines="none" class="child-list">
         <ion-item>
           <!-- TODO: Change this function so that it properly sends the selected recipe out to the page to update the json -->
-          <ion-select (ionChange)="changedRecipe(item['name'], child)" placeholder="Select a meal...">          
+          <ion-select [(ngModel)]="selected" (ionChange)="changedRecipe(j, day['name'])" placeholder="Select a meal...">          
             <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
           </ion-select>
         </ion-item>
-        <app-product [product]="child" *ngIf="!child.children"></app-product>
+        <app-product [product]="schedRecipe" *ngIf="!schedRecipe.recipes"></app-product>
       </ion-list>
     </div>
   </ion-list>

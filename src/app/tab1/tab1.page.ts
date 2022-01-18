@@ -3,6 +3,7 @@ import { RecipeService } from '../services/recipe/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/models/recipe.model';
 import { Subscription } from 'rxjs';
+import { InternalRecipeDay } from '../shared/models/weekly-list.model';
 
 @Component({
   selector: 'app-tab1',
@@ -12,14 +13,17 @@ import { Subscription } from 'rxjs';
 export class Tab1Page implements OnInit {
   _subscription: Subscription;
   recipes: Recipe[];
-  information: any[];
+  recipeSchedule: InternalRecipeDay[];
   startEnd = this.getFirstDayOfWeek();
+
+  selected: Recipe;
 
   automaticClose = false;
 
   constructor(private http: HttpClient, private recipeService: RecipeService) {
     this.http.get('assets/test-json/information.json').subscribe(data => {
-      this.information = data['items'];
+      const daysSchedule = data['days'] as InternalRecipeDay[];
+      this.recipeSchedule = daysSchedule.slice();
     });
   }
 
@@ -32,11 +36,11 @@ export class Tab1Page implements OnInit {
   }
 
   toggleSection(i) {
-    this.information[i].open = !this.information[i].open;
+    this.recipeSchedule[i].open = !this.recipeSchedule[i].open;
 
-    if (this.automaticClose && this.information[i].open)
+    if (this.automaticClose && this.recipeSchedule[i].open)
     {
-      this.information
+      this.recipeSchedule
         .filter((item, itemIndex) => itemIndex !== i)
         .map(item => item.open = false);
     }
@@ -55,21 +59,22 @@ export class Tab1Page implements OnInit {
     return [startDate, endDate];
   }
 
-  changedRecipe(day: string, recipe: Recipe)
+  changedRecipe(ind: number, day: string)
   {
-    const updateItem = this.information.find(this.findIndexToUpdate, day);
-    const index = this.information.indexOf(updateItem);
+    const updateItem = this.recipeSchedule.find(this.findIndexToUpdate, day);
+    const index = this.recipeSchedule.indexOf(updateItem);
+
+    console.log(ind);
 
     if (index !== -1)
     {
-      console.log(recipe);
-      this.information[index]['children'][0]['information'] = recipe;
+      console.log(index);
+      console.log(this.selected);
+      this.recipeSchedule[index].recipes[ind] = this.selected;
       console.log('changed');
     }
-    
-    console.log(this.information);
-    console.log(day);
-    console.log(recipe);
+
+    console.log(this.recipeSchedule);
   }
 
   findIndexToUpdate(newItem) {

@@ -1,163 +1,667 @@
 {
-    "items": [
+    "days": [
         {
             "name": "Sunday",
-            "children": [
+            "recipes": [
                 {
-                    "name": "Breakfast",
-                    "information": "Chicken Tikka Masala",
-                    "ingredients": [
-                        {
-                            "name": "greek yogurt",
-                            "isOwned": false
-                        },
-                        {
-                            "name": "turmeric",
-                            "isOwned": false
-                        },
-                        {
-                            "name": "heavy cream",
-                            "isOwned": false
-                        }
-                    ]
+                    "meal": "Breakfast",
+                    "recipe": {
+                        "_id": "1",
+                        "name": "Chicken Tikka Masala",
+                        "information": "Classic British-Indian cuisine",
+                        "ingredients": [
+                            {
+                                "name": "greek yogurt",
+                                "qty": "12",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "turmeric",
+                                "qty": "2",
+                                "unit": "Tbsp",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "heavy cream",
+                                "qty": "1",
+                                "unit": "pint",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Lunch",
-                    "information": "Pizza",
-                    "ingredients": [
-                        {
-                            "name": "pizza sauce",
-                            "isOwned": false
-                        },
-                        {
-                            "name": "pepperoni",
-                            "isOwned": false
-                        },
-                        {
-                            "name": "cheese",
-                            "isOwned": false
-                        },
-                        {
-                            "name": "red peppers",
-                            "isOwned": false
-                        }
-                    ]
+                    "meal": "Lunch",
+                    "recipe": {
+                        "_id": "2",
+                        "name": "Pizza",
+                        "information": "Italy's finest (better with provel)",
+                        "ingredients": [
+                            {
+                                "name": "pizza sauce",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "pepperoni",
+                                "qty": "16",
+                                "unit": "units",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "red peppers",
+                                "qty": "6",
+                                "unit": "oz",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Dinner",
-                    "information": "Tacos",
-                    "ingredients": [
-                        {
-                            "name": "taco shell",
-                            "isOwned": false
-                        },
-                        {
-                            "name": "ground beef",
-                            "isOwned": false
-                        }
-                    ]
+                    "meal": "Dinner",
+                    "recipe": {
+                        "_id": "3",
+                        "name": "Tacos",
+                        "information": "Taco bout tasty",
+                        "ingredients": [
+                            {
+                                "name": "taco shell",
+                                "qty": "6",
+                                "unit": "unit",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "ground beef",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "cheddar cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            }
+                        ]
+                    }
                 }
             ]
         },
         {
             "name": "Monday",
-            "children": [
+            "recipes": [
                 {
-                    "name": "Breakfast",
-                    "information": "Chicken Tikka Masala"
+                    "meal": "Breakfast",
+                    "recipe": {
+                        "_id": "1",
+                        "name": "Chicken Tikka Masala",
+                        "information": "Classic British-Indian cuisine",
+                        "ingredients": [
+                            {
+                                "name": "greek yogurt",
+                                "qty": "12",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "turmeric",
+                                "qty": "2",
+                                "unit": "Tbsp",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "heavy cream",
+                                "qty": "1",
+                                "unit": "pint",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Lunch",
-                    "information": "Pizza"
+                    "meal": "Lunch",
+                    "recipe": {
+                        "_id": "2",
+                        "name": "Pizza",
+                        "information": "Italy's finest (better with provel)",
+                        "ingredients": [
+                            {
+                                "name": "pizza sauce",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "pepperoni",
+                                "qty": "16",
+                                "unit": "units",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "red peppers",
+                                "qty": "6",
+                                "unit": "oz",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Dinner",
-                    "information": "Tacos"
+                    "meal": "Dinner",
+                    "recipe": {
+                        "_id": "3",
+                        "name": "Tacos",
+                        "information": "Taco bout tasty",
+                        "ingredients": [
+                            {
+                                "name": "taco shell",
+                                "qty": "6",
+                                "unit": "unit",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "ground beef",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "cheddar cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            }
+                        ]
+                    }
                 }
             ]
         },
         {
             "name": "Tuesday",
-            "children": [
+            "recipes": [
                 {
-                    "name": "Breakfast",
-                    "information": "Chicken Tikka Masala"
+                    "meal": "Breakfast",
+                    "recipe": {
+                        "_id": "1",
+                        "name": "Chicken Tikka Masala",
+                        "information": "Classic British-Indian cuisine",
+                        "ingredients": [
+                            {
+                                "name": "greek yogurt",
+                                "qty": "12",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "turmeric",
+                                "qty": "2",
+                                "unit": "Tbsp",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "heavy cream",
+                                "qty": "1",
+                                "unit": "pint",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Lunch",
-                    "information": "Pizza"
+                    "meal": "Lunch",
+                    "recipe": {
+                        "_id": "2",
+                        "name": "Pizza",
+                        "information": "Italy's finest (better with provel)",
+                        "ingredients": [
+                            {
+                                "name": "pizza sauce",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "pepperoni",
+                                "qty": "16",
+                                "unit": "units",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "red peppers",
+                                "qty": "6",
+                                "unit": "oz",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Dinner",
-                    "information": "Tacos"
+                    "meal": "Dinner",
+                    "recipe": {
+                        "_id": "3",
+                        "name": "Tacos",
+                        "information": "Taco bout tasty",
+                        "ingredients": [
+                            {
+                                "name": "taco shell",
+                                "qty": "6",
+                                "unit": "unit",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "ground beef",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "cheddar cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            }
+                        ]
+                    }
                 }
             ]
         },
         {
             "name": "Wednesday",
-            "children": [
+            "recipes": [
                 {
-                    "name": "Breakfast",
-                    "information": "Chicken Tikka Masala"
+                    "meal": "Breakfast",
+                    "recipe": {
+                        "_id": "1",
+                        "name": "Chicken Tikka Masala",
+                        "information": "Classic British-Indian cuisine",
+                        "ingredients": [
+                            {
+                                "name": "greek yogurt",
+                                "qty": "12",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "turmeric",
+                                "qty": "2",
+                                "unit": "Tbsp",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "heavy cream",
+                                "qty": "1",
+                                "unit": "pint",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Lunch",
-                    "information": "Pizza"
+                    "meal": "Lunch",
+                    "recipe": {
+                        "_id": "2",
+                        "name": "Pizza",
+                        "information": "Italy's finest (better with provel)",
+                        "ingredients": [
+                            {
+                                "name": "pizza sauce",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "pepperoni",
+                                "qty": "16",
+                                "unit": "units",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "red peppers",
+                                "qty": "6",
+                                "unit": "oz",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Dinner",
-                    "information": "Tacos"
+                    "meal": "Dinner",
+                    "recipe": {
+                        "_id": "3",
+                        "name": "Tacos",
+                        "information": "Taco bout tasty",
+                        "ingredients": [
+                            {
+                                "name": "taco shell",
+                                "qty": "6",
+                                "unit": "unit",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "ground beef",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "cheddar cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            }
+                        ]
+                    }
                 }
             ]
         },
         {
             "name": "Thursday",
-            "children": [
+            "recipes": [
                 {
-                    "name": "Breakfast",
-                    "information": "Chicken Tikka Masala"
+                    "meal": "Breakfast",
+                    "recipe": {
+                        "_id": "1",
+                        "name": "Chicken Tikka Masala",
+                        "information": "Classic British-Indian cuisine",
+                        "ingredients": [
+                            {
+                                "name": "greek yogurt",
+                                "qty": "12",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "turmeric",
+                                "qty": "2",
+                                "unit": "Tbsp",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "heavy cream",
+                                "qty": "1",
+                                "unit": "pint",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Lunch",
-                    "information": "Pizza"
+                    "meal": "Lunch",
+                    "recipe": {
+                        "_id": "2",
+                        "name": "Pizza",
+                        "information": "Italy's finest (better with provel)",
+                        "ingredients": [
+                            {
+                                "name": "pizza sauce",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "pepperoni",
+                                "qty": "16",
+                                "unit": "units",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "red peppers",
+                                "qty": "6",
+                                "unit": "oz",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Dinner",
-                    "information": "Tacos"
+                    "meal": "Dinner",
+                    "recipe": {
+                        "_id": "3",
+                        "name": "Tacos",
+                        "information": "Taco bout tasty",
+                        "ingredients": [
+                            {
+                                "name": "taco shell",
+                                "qty": "6",
+                                "unit": "unit",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "ground beef",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "cheddar cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            }
+                        ]
+                    }
                 }
             ]
         },
         {
             "name": "Friday",
-            "children": [
+            "recipes": [
                 {
-                    "name": "Breakfast",
-                    "information": "Chicken Tikka Masala"
+                    "meal": "Breakfast",
+                    "recipe": {
+                        "_id": "1",
+                        "name": "Chicken Tikka Masala",
+                        "information": "Classic British-Indian cuisine",
+                        "ingredients": [
+                            {
+                                "name": "greek yogurt",
+                                "qty": "12",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "turmeric",
+                                "qty": "2",
+                                "unit": "Tbsp",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "heavy cream",
+                                "qty": "1",
+                                "unit": "pint",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Lunch",
-                    "information": "Pizza"
+                    "meal": "Lunch",
+                    "recipe": {
+                        "_id": "2",
+                        "name": "Pizza",
+                        "information": "Italy's finest (better with provel)",
+                        "ingredients": [
+                            {
+                                "name": "pizza sauce",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "pepperoni",
+                                "qty": "16",
+                                "unit": "units",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "red peppers",
+                                "qty": "6",
+                                "unit": "oz",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Dinner",
-                    "information": "Tacos"
+                    "meal": "Dinner",
+                    "recipe": {
+                        "_id": "3",
+                        "name": "Tacos",
+                        "information": "Taco bout tasty",
+                        "ingredients": [
+                            {
+                                "name": "taco shell",
+                                "qty": "6",
+                                "unit": "unit",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "ground beef",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "cheddar cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            }
+                        ]
+                    }
                 }
             ]
         },
         {
             "name": "Saturday",
-            "children": [
+            "recipes": [
                 {
-                    "name": "Breakfast",
-                    "information": "Chicken Tikka Masala"
+                    "meal": "Breakfast",
+                    "recipe": {
+                        "_id": "1",
+                        "name": "Chicken Tikka Masala",
+                        "information": "Classic British-Indian cuisine",
+                        "ingredients": [
+                            {
+                                "name": "greek yogurt",
+                                "qty": "12",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "turmeric",
+                                "qty": "2",
+                                "unit": "Tbsp",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "heavy cream",
+                                "qty": "1",
+                                "unit": "pint",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Lunch",
-                    "information": "Pizza"
+                    "meal": "Lunch",
+                    "recipe": {
+                        "_id": "2",
+                        "name": "Pizza",
+                        "information": "Italy's finest (better with provel)",
+                        "ingredients": [
+                            {
+                                "name": "pizza sauce",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "pepperoni",
+                                "qty": "16",
+                                "unit": "units",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "red peppers",
+                                "qty": "6",
+                                "unit": "oz",
+                                "isOwned": false
+                            }
+                        ]
+                    }
                 },
                 {
-                    "name": "Dinner",
-                    "information": "Tacos"
+                    "meal": "Dinner",
+                    "recipe": {
+                        "_id": "3",
+                        "name": "Tacos",
+                        "information": "Taco bout tasty",
+                        "ingredients": [
+                            {
+                                "name": "taco shell",
+                                "qty": "6",
+                                "unit": "unit",
+                                "isOwned": true
+                            },
+                            {
+                                "name": "ground beef",
+                                "qty": "8",
+                                "unit": "oz",
+                                "isOwned": false
+                            },
+                            {
+                                "name": "cheddar cheese",
+                                "qty": "16",
+                                "unit": "oz",
+                                "isOwned": true
+                            }
+                        ]
+                    }
                 }
             ]
         }

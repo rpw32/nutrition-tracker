@@ -1,10 +1,13 @@
 import { Recipe } from './recipe.model';
 
-export interface Day {
+
+export interface RecipeDay {
    name: string;
-   children: Recipe[];
+   recipes: Recipe[];
 }
 
-export interface RootObject {
-   items: Day[];
+export interface InternalRecipeDay extends RecipeDay {
+   open: boolean;
+   name: string;
+   recipes: Recipe[];
 }
