@@ -12,3 +12,8 @@ export class Recipe {
       return this;
   }
 }
+
+export class InternalRecipe {
+   meal: string;
+   recipe: Recipe;
+}

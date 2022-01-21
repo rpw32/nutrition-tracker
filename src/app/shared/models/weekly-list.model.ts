@@ -1,13 +1,13 @@
-import { Recipe } from './recipe.model';
+import { InternalRecipe, Recipe } from './recipe.model';
 
 
 export interface RecipeDay {
    name: string;
-   recipes: Recipe[];
+   recipes: InternalRecipe[];
 }
 
 export interface InternalRecipeDay extends RecipeDay {
    open: boolean;
    name: string;
-   recipes: Recipe[];
+   recipes: InternalRecipe[];
 }

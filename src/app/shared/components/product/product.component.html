@@ -12,9 +12,11 @@
         <div *ngIf="product.ingredients">
           <h5>Ingredients: </h5>
           <ion-list *ngFor="let ingredient of product.ingredients; let i = index;" lines="none" class="child-list">
-            <ion-item>
+            <ion-item button=true>
+              <span ion-content class="checkbox-container">
+                <ion-checkbox slot="start" [(ngModel)]="ingredient.isOwned"></ion-checkbox>
+              </span>
               <ion-label>{{ ingredient.name }}</ion-label>
-              <ion-checkbox slot="start" [(ngModel)]="ingredient.isOwned"></ion-checkbox>
               <ion-button (click)="addIngredient(ingredient)" slot="end" shape="round" *ngIf="!ingredient.isOwned">
                 <ion-icon name="bag-add-outline"></ion-icon>
               </ion-button>

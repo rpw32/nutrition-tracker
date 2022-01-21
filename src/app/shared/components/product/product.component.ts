@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { GroceriesService } from '../../../services/grocery/groceries.service';
+import { Recipe } from '../../models/recipe.model';
 
 @Component({
   selector: 'app-product',
@@ -9,7 +10,7 @@ import { GroceriesService } from '../../../services/grocery/groceries.service';
 })
 export class ProductComponent implements OnInit {
 
-  @Input() product: any;
+  @Input() product: Recipe;
   constructor(private toastCtrl: ToastController, public groceries: GroceriesService) { }
 
   ngOnInit() {}

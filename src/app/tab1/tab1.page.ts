@@ -67,8 +67,8 @@ export class Tab1Page implements OnInit {
     if (index !== -1)
     {
       console.log(index);
-      console.log(event.detail.value);
-      this.recipeSchedule[index].recipes[ind] = event.detail.value as Recipe
+      console.log(event);
+      this.recipeSchedule[index].recipes[ind].recipe = event.detail.value as Recipe
       console.log('changed');
     }
 
