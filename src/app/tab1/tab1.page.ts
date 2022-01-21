@@ -16,8 +16,6 @@ export class Tab1Page implements OnInit {
   recipeSchedule: InternalRecipeDay[];
   startEnd = this.getFirstDayOfWeek();
 
-  selected: Recipe;
-
   automaticClose = false;
 
   constructor(private http: HttpClient, private recipeService: RecipeService) {
@@ -59,7 +57,7 @@ export class Tab1Page implements OnInit {
     return [startDate, endDate];
   }
 
-  changedRecipe(ind: number, day: string)
+  changedRecipe(ind: number, day: string, event: CustomEvent)
   {
     const updateItem = this.recipeSchedule.find(this.findIndexToUpdate, day);
     const index = this.recipeSchedule.indexOf(updateItem);
@@ -69,8 +67,8 @@ export class Tab1Page implements OnInit {
     if (index !== -1)
     {
       console.log(index);
-      console.log(this.selected);
-      this.recipeSchedule[index].recipes[ind] = this.selected;
+      console.log(event.detail.value);
+      this.recipeSchedule[index].recipes[ind] = event.detail.value as Recipe
       console.log('changed');
     }
 
@@ -80,6 +78,14 @@ export class Tab1Page implements OnInit {
   findIndexToUpdate(newItem) {
     return newItem['name'] === this;
   }
+
+  compareWith(r1: Recipe, r2: Recipe) {
+    return r1 && r2 ? r1._id === r2._id : r1 === r2;
+  }
+
+  indexTracker(index: number, value: any) {
+    return index;
+}
 
 }
 

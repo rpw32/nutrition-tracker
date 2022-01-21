@@ -26,10 +26,9 @@
     </ion-item>
 
     <div *ngIf="day.recipes && day.open">
-      <ion-list *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: trackById" lines="none" class="child-list">
+      <ion-list *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;" lines="none" class="child-list">
         <ion-item>
-          <!-- TODO: Change this function so that it properly sends the selected recipe out to the page to update the json -->
-          <ion-select [(ngModel)]="selected" (ionChange)="changedRecipe(j, day['name'])" placeholder="Select a meal...">          
+          <ion-select [(ngModel)]="recipe" [compareWith]="compareFn" (ionChange)="changedRecipe(j, day['name'], $event)" placeholder="Select a meal...">          
             <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
           </ion-select>
         </ion-item>

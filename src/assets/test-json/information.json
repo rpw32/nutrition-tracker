@@ -6,26 +6,20 @@
                 {
                     "meal": "Breakfast",
                     "recipe": {
-                        "_id": "1",
-                        "name": "Chicken Tikka Masala",
-                        "information": "Classic British-Indian cuisine",
+                        "_id": "619b2b9049c44ec85e7524ed",
+                        "name": "Brussels & Cheese",
+                        "information": "A simple dish from old times",
                         "ingredients": [
                             {
-                                "name": "greek yogurt",
-                                "qty": "12",
-                                "unit": "oz",
-                                "isOwned": false
-                            },
-                            {
-                                "name": "turmeric",
+                                "name": "brussel sprouts",
                                 "qty": "2",
-                                "unit": "Tbsp",
-                                "isOwned": false
+                                "unit": "sprouts",
+                                "isOwned": true
                             },
                             {
-                                "name": "heavy cream",
-                                "qty": "1",
-                                "unit": "pint",
+                                "name": "american cheese",
+                                "qty": "3",
+                                "unit": "slice",
                                 "isOwned": false
                             }
                         ]
