@@ -1,7 +1,7 @@
 import { InternalRecipe, Recipe } from './recipe.model';
 
 
-export interface RecipeDay {
+export class RecipeDay {
    name: string;
    recipes: InternalRecipe[];
 }

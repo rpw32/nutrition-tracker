@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnChanges, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Recipe } from 'src/app/shared/models/recipe.model';
+import { Recipe, RecipeScheduleUpdate } from 'src/app/shared/models/recipe.model';
 import { ApiService } from '../api.service';
 
 @Injectable({
@@ -24,6 +24,37 @@ export class RecipeService {
   updateRecipeSusbcribers()
   {
     this.recipesChange.next(this.recipes);
+  }
+
+  updateSchedule(scheduleUpdate: RecipeScheduleUpdate): Observable<any> {
+    console.log('Sending the schedule update to the server');
+
+    const paramString = JSON.stringify(scheduleUpdate);
+    const paramObj = JSON.parse(paramString);
+
+    // set headers
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    // submit form to backend to get name by email
+    return this.api.updateSchedule(paramObj, httpOptions).pipe(
+      map(
+        data => {
+          if  ((data !== -1) && (data != null)){
+            console.log('Success');// successfully retrieved recipes
+            return data;
+          }
+          else {
+            // couldn't find a name
+            console.log('Failure');
+            return false;
+          }
+        },
+      )
+    );
   }
 
   get50Recipes(): Observable<any> {

@@ -12,6 +12,26 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  updateSchedule(input: string, options: any): Observable<any> {
+    console.log('Calling updateSchedule: ', options);
+    return this.http.post(this.baseUrl + '/schedules', input, options).pipe(
+      map(
+        data => {
+          console.log('Posted new schedule update! Data posted: ', data);
+          return data;
+        }
+      ),
+      catchError(
+        err => {
+          console.log('POST ERROR: ', err);
+          // the of() function returns to the subscriber
+          // whatever value is inside it.
+          return of(1);
+        }
+      )
+    );
+  }
+
   get50Recipes(options: any): Observable<any> {
     console.log('Calling get50Recipes: ', options);
     return this.http.get(this.baseUrl + '/recipes', options).pipe(
