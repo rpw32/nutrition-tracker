@@ -2,7 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnChanges, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Recipe, RecipeScheduleUpdate } from 'src/app/shared/models/recipe.model';
+import { Recipe } from 'src/app/shared/models/recipe.model';
+import { WeeklyScheduleUpdate } from 'src/app/shared/models/weekly-list.model';
 import { ApiService } from '../api.service';
 
 @Injectable({
@@ -26,7 +27,7 @@ export class RecipeService {
     this.recipesChange.next(this.recipes);
   }
 
-  updateSchedule(scheduleUpdate: RecipeScheduleUpdate): Observable<any> {
+  updateSchedule(scheduleUpdate: WeeklyScheduleUpdate): Observable<any> {
     console.log('Sending the schedule update to the server');
 
     const paramString = JSON.stringify(scheduleUpdate);

@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../services/recipe/recipe.service';
 import { Component, OnInit } from '@angular/core';
-import { Recipe, RecipeScheduleUpdate } from '../shared/models/recipe.model';
+import { Recipe } from '../shared/models/recipe.model';
 import { Subscription } from 'rxjs';
-import { InternalRecipeDay } from '../shared/models/weekly-list.model';
+import { InternalRecipeDay, WeeklyScheduleUpdate } from '../shared/models/weekly-list.model';
 
 @Component({
   selector: 'app-tab1',
@@ -72,7 +72,7 @@ export class Tab1Page implements OnInit {
       this.recipeSchedule[index].recipes[ind].recipe = changedRecipe;
       console.log('changed');
 
-      const updateRecipe = new RecipeScheduleUpdate(ind, day, changedRecipe);
+      const updateRecipe = new WeeklyScheduleUpdate(ind, index, changedRecipe);
       this.recipeService.updateSchedule(updateRecipe).subscribe();
     }
 
