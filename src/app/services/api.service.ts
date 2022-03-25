@@ -12,6 +12,26 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  getSchedule(_id: string, options: any): Observable<any> {
+    console.log('Calling getSchedule: ', options);
+    return this.http.get(this.baseUrl + '/schedule/' + _id, options).pipe(
+      map(
+        data => {
+          console.log('Got the schedule for the requested id: ', data);
+          return data;
+        }
+      ),
+      catchError(
+        err => {
+          console.log('GET ERROR: ', err);
+                    // the of() function returns to the subscriber
+          // whatever value is inside it.
+          return of(1);
+        }
+      )
+    )
+  }
+
   updateSchedule(input: string, options: any): Observable<any> {
     console.log('Calling updateSchedule: ', options);
     return this.http.post(this.baseUrl + '/schedules', input, options).pipe(

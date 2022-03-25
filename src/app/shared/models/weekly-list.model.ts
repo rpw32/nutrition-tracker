@@ -27,5 +27,5 @@ export class WeeklyScheduleUpdate {
 
 export interface WeeklySchedule {
    _id: string;
-   schedule: RecipeDay[];
+   days: RecipeDay[];
 }

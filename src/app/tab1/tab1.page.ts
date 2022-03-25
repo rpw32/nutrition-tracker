@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { RecipeService } from '../services/recipe/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/models/recipe.model';
@@ -11,26 +10,26 @@ import { InternalRecipeDay, WeeklyScheduleUpdate } from '../shared/models/weekly
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
-  _subscription: Subscription;
+  _recipeSubscription: Subscription;
+  _scheduleSubscription: Subscription;
   recipes: Recipe[];
   recipeSchedule: InternalRecipeDay[];
   startEnd = this.getFirstDayOfWeek();
 
   automaticClose = false;
 
-  constructor(private http: HttpClient, private recipeService: RecipeService) {
-    this.http.get('assets/test-json/information.json').subscribe(data => {
-      const daysSchedule = data['days'] as InternalRecipeDay[];
-      this.recipeSchedule = daysSchedule.slice();
-    });
+  constructor(private recipeService: RecipeService) {
   }
 
   ngOnInit()
   {
-    this._subscription = this.recipeService.recipesChange.subscribe((value) => {
+    this._recipeSubscription = this.recipeService.recipesChange.subscribe((value) => {
       this.recipes = value;
     });
-    console.log(this.recipes);
+
+    this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
+      this.recipeSchedule = value.days as InternalRecipeDay[];
+    });
   }
 
   toggleSection(i) {
