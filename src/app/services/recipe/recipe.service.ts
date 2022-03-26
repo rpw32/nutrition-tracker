@@ -3,8 +3,7 @@ import { Injectable, OnChanges, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { WeeklyScheduleUpdate } from 'src/app/shared/models/weekly-list.model';
-import { WeeklySchedule } from '../../shared/models/weekly-list.model';
+import { InternalRecipeDay, RecipeDay, WeeklySchedule } from '../../shared/models/weekly-list.model';
 import { ApiService } from '../api.service';
 
 @Injectable({
@@ -12,10 +11,14 @@ import { ApiService } from '../api.service';
 })
 export class RecipeService {
 
-  id: string = "61ea463459bd501f9b844002";
+  // TODO: Make this id come from some unique identifier for a user
+  // This might be something from an authentication service that can be verified
+  // by the service and the backend can verify that the user is authorized to make
+  // the request by pinging the auth service for the expected key
+  id: string = "61ea463459bd501f9b844003";
 
-  schedule: WeeklySchedule;
-  scheduleChange: BehaviorSubject<WeeklySchedule> = new BehaviorSubject<WeeklySchedule>(null);
+  schedule: RecipeDay[];
+  scheduleChange: BehaviorSubject<RecipeDay[]> = new BehaviorSubject<RecipeDay[]>([]);
 
   recipes: Recipe[];
   recipesChange: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
@@ -31,19 +34,19 @@ export class RecipeService {
     let scheduleResponse = this.getSchedule().subscribe(data => {
       let scheduleResponse = data['schedule'] as string;
       console.log(scheduleResponse);
-      this.schedule = JSON.parse(scheduleResponse) as WeeklySchedule;
-      this.updateScheduleSubscribers();
+      this.schedule = JSON.parse(scheduleResponse)['days'] as RecipeDay[];
+      this.updateScheduleSusbcribers();
     });
    }
+
+  updateScheduleSusbcribers()
+  {
+    this.scheduleChange.next(this.schedule);
+  }
 
   updateRecipeSusbcribers()
   {
     this.recipesChange.next(this.recipes);
-  }
-
-  updateScheduleSubscribers()
-  {
-    this.scheduleChange.next(this.schedule);
   }
 
   getSchedule(): Observable<any> {
@@ -75,7 +78,7 @@ export class RecipeService {
     
   }
 
-  updateSchedule(scheduleUpdate: WeeklyScheduleUpdate): Observable<any> {
+  updateSchedule(mealIndex: number, dayIndex: number, scheduleUpdate: Recipe): Observable<any> {
     console.log('Sending the schedule update to the server');
 
     const paramString = JSON.stringify(scheduleUpdate);
@@ -89,7 +92,7 @@ export class RecipeService {
     };
 
     // submit form to backend to get name by email
-    return this.api.updateSchedule(paramObj, httpOptions).pipe(
+    return this.api.updateSchedule(this.id, mealIndex, dayIndex, paramObj, httpOptions).pipe(
       map(
         data => {
           if  ((data !== -1) && (data != null)){

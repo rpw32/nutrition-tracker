@@ -2,7 +2,7 @@ import { RecipeService } from '../services/recipe/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/models/recipe.model';
 import { Subscription } from 'rxjs';
-import { InternalRecipeDay, WeeklyScheduleUpdate } from '../shared/models/weekly-list.model';
+import { InternalRecipeDay } from '../shared/models/weekly-list.model';
 
 @Component({
   selector: 'app-tab1',
@@ -28,7 +28,7 @@ export class Tab1Page implements OnInit {
     });
 
     this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
-      this.recipeSchedule = value.days as InternalRecipeDay[];
+      this.recipeSchedule = value as InternalRecipeDay[];
     });
   }
 
@@ -56,23 +56,22 @@ export class Tab1Page implements OnInit {
     return [startDate, endDate];
   }
 
-  changedRecipe(ind: number, day: string, event: CustomEvent)
+  changedRecipe(mealIndex: number, day: string, event: CustomEvent)
   {
-    const updateItem = this.recipeSchedule.find(this.findIndexToUpdate, day);
-    const index = this.recipeSchedule.indexOf(updateItem);
+    const updateDay = this.recipeSchedule.find(this.findIndexToUpdate, day);
+    const dayIndex = this.recipeSchedule.indexOf(updateDay);
 
-    console.log(ind);
+    console.log(mealIndex);
 
-    if (index !== -1)
+    if (dayIndex !== -1)
     {
-      console.log(index);
+      console.log(dayIndex);
       console.log(event);
       const changedRecipe: Recipe = event.detail.value as Recipe;
-      this.recipeSchedule[index].recipes[ind].recipe = changedRecipe;
+      this.recipeSchedule[dayIndex].recipes[mealIndex].recipe = changedRecipe;
       console.log('changed');
 
-      const updateRecipe = new WeeklyScheduleUpdate(ind, index, changedRecipe);
-      this.recipeService.updateSchedule(updateRecipe).subscribe();
+      this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe).subscribe();
     }
 
     console.log(this.recipeSchedule);

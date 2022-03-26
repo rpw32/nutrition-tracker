@@ -32,9 +32,9 @@ export class ApiService {
     )
   }
 
-  updateSchedule(input: string, options: any): Observable<any> {
+  updateSchedule(_id: string, mealIndex: number, dayIndex: number, input: string, options: any): Observable<any> {
     console.log('Calling updateSchedule: ', options);
-    return this.http.post(this.baseUrl + '/schedules', input, options).pipe(
+    return this.http.post(this.baseUrl + `/schedule/${_id}/${dayIndex.toString()}/${mealIndex.toString()}`, input, options).pipe(
       map(
         data => {
           console.log('Posted new schedule update! Data posted: ', data);

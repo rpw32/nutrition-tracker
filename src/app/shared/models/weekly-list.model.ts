@@ -6,26 +6,20 @@ export interface RecipeDay {
    recipes: InternalRecipe[];
 }
 
-export interface InternalRecipeDay extends RecipeDay {
+export class InternalRecipeDay implements RecipeDay {
    open: boolean;
    name: string;
    recipes: InternalRecipe[];
-}
 
-export class WeeklyScheduleUpdate {
-   dayIndex: number;
-   mealIndex: number;
-   recipe: Recipe;
-
-   public constructor(mealInd: number, dayIndex: number, init?: Partial<Recipe>) {
-      this.recipe = new Recipe(init);
-      this.dayIndex = dayIndex;
-      this.mealIndex = mealInd;
+   public constructor(init?: Partial<RecipeDay>) {
+      this.open = false;
+      this.name = init.name;
+      this.recipes = init.recipes;
       return this;
   }
 }
 
-export interface WeeklySchedule {
+export class WeeklySchedule {
    _id: string;
    days: RecipeDay[];
 }
