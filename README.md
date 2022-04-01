@@ -6,7 +6,7 @@ The application currently allows the user to view their weekly meals with ingred
 
 To-do list:
 - [X] Establish a backend to store meals in some sort of database
-- [ ] Add authentication
+- [ ] Add authentication (may be a later thing)
 - [X] Implement the grocery list
-- [ ] Add a way to create your own meals
+- [X] Add a way to create your own meals
 - [ ] Support importing meals from other sites/pinterest
