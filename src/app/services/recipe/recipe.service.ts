@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnChanges, OnDestroy } from '@angular/core';
+import { HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { InternalRecipeDay, RecipeDay, WeeklySchedule } from '../../shared/models/weekly-list.model';
+import { RecipeDay } from '../../shared/models/weekly-list.model';
 import { ApiService } from '../api.service';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class RecipeService {
   // This might be something from an authentication service that can be verified
   // by the service and the backend can verify that the user is authorized to make
   // the request by pinging the auth service for the expected key
-  id: string = "61ea463459bd501f9b844003";
+  id: string = "61ea463459bd501f9b844002";
 
   schedule: RecipeDay[];
   scheduleChange: BehaviorSubject<RecipeDay[]> = new BehaviorSubject<RecipeDay[]>([]);
@@ -35,7 +35,10 @@ export class RecipeService {
       let scheduleResponse = data['schedule'] as string;
       console.log(scheduleResponse);
       this.schedule = JSON.parse(scheduleResponse)['days'] as RecipeDay[];
-      this.updateScheduleSusbcribers();
+      if (data['result'])
+      {
+        this.updateScheduleSusbcribers();
+      }
     });
    }
 
@@ -95,13 +98,15 @@ export class RecipeService {
     return this.api.updateSchedule(this.id, mealIndex, dayIndex, paramObj, httpOptions).pipe(
       map(
         data => {
-          if  ((data !== -1) && (data != null)){
+          if  ((data !== -1) && (data != null) && data['result']){
             console.log('Success');// successfully retrieved recipes
+            this.updateScheduleArray(mealIndex, dayIndex, scheduleUpdate);
             return data;
           }
           else {
             // couldn't find a name
             console.log('Failure');
+            this.updateScheduleSusbcribers();
             return false;
           }
         },
@@ -214,6 +219,7 @@ export class RecipeService {
 
   /// UTILITY FUNCTIONS
   /// {
+    // Finds the recipe in the service's recipe array and updates it with the given recipe
     updateRecipeArray(recipeUpdate: Recipe) {
       const updateItem = this.recipes.find(this.findIndexToUpdate, recipeUpdate._id);
       const index = this.recipes.indexOf(updateItem);
@@ -229,6 +235,14 @@ export class RecipeService {
   
       this.updateRecipeSusbcribers();
       console.log(this.recipes);
+    }
+
+    // Updates the recipe in the service's schedule at the given indices
+    updateScheduleArray(mealIndex: number, dayIndex: number, recipeUpdate: Recipe) {
+      // Quick sanity check
+      if (mealIndex >= 0 && dayIndex >= 0) {
+        this.schedule[dayIndex].recipes[mealIndex].recipe = recipeUpdate;
+      }
     }
   
   

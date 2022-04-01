@@ -1,4 +1,4 @@
-import { InternalRecipe, Recipe } from './recipe.model';
+import { InternalRecipe } from './recipe.model';
 
 
 export interface RecipeDay {

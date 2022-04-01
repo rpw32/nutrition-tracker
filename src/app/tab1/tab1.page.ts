@@ -21,8 +21,7 @@ export class Tab1Page implements OnInit {
   constructor(private recipeService: RecipeService) {
   }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this._recipeSubscription = this.recipeService.recipesChange.subscribe((value) => {
       this.recipes = value;
     });
@@ -61,20 +60,11 @@ export class Tab1Page implements OnInit {
     const updateDay = this.recipeSchedule.find(this.findIndexToUpdate, day);
     const dayIndex = this.recipeSchedule.indexOf(updateDay);
 
-    console.log(mealIndex);
-
     if (dayIndex !== -1)
     {
-      console.log(dayIndex);
-      console.log(event);
       const changedRecipe: Recipe = event.detail.value as Recipe;
-      this.recipeSchedule[dayIndex].recipes[mealIndex].recipe = changedRecipe;
-      console.log('changed');
-
       this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe).subscribe();
     }
-
-    console.log(this.recipeSchedule);
   }
 
   findIndexToUpdate(newItem) {
