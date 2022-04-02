@@ -28,7 +28,6 @@
     <div *ngIf="day.recipes && day.open">
       <ion-list *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;" lines="none" class="child-list">
         <ion-item>
-          <!-- TODO: Figure out why I can't set default values here -->
           <ion-select (ionChange)="changedRecipe(j, day['name'], $event)" placeholder="Select a recipe...">          
             <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
           </ion-select>

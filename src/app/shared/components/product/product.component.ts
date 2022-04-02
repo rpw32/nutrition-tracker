@@ -23,6 +23,6 @@ export class ProductComponent implements OnInit {
     });
     toast.present();
 
-    this.groceries.addToList(ingredient.name);
+    this.groceries.addToList(ingredient);
   }
 }

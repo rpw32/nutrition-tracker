@@ -7,17 +7,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="list" *ngIf="groceryList.length">
-    <ion-list *ngFor="let item of groceryList; let i = index;" class="ingredient">
+  <div class="list" *ngIf="groceryList.size">
+    <ion-list *ngFor="let item of groceryList | keyvalue; let i = index;" class="ingredient">
       <ion-item>
-        {{ item }}
+        {{ item.value.qty }} {{ item.value.unit }} of {{ item.key }}
         <ion-button (click)="removeItem(i)" slot="end">
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
       </ion-item>
     </ion-list>
   </div>
-  <div class="list" *ngIf="!groceryList.length">
+  <div class="list" *ngIf="!groceryList.size">
     <h3>Nothing to see here! Try adding items to your grocery list!</h3>
   </div>
 </ion-content>
