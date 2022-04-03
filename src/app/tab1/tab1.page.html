@@ -15,26 +15,38 @@
 
 <ion-content>
 
-  <ion-list *ngFor="let day of recipeSchedule; let i = index;" class="accordion-list" lines="none" detail="false" no-padding>
+  <ion-grid fixed *ngFor="let day of recipeSchedule; let i = index;" class="accordion-list" lines="none" detail="false">
+    
+    <!-- DAY DROPDOWN START -->
+    <div>
+      <ion-row>
+        <ion-col size="12">
+          <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': day.open, 'section': !day.open}">
+            <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!day.open"></ion-icon>
+            <ion-icon slot="end" name="chevron-down-outline" *ngIf="day.open"></ion-icon>
+            <ion-label>
+              {{ day.name }}
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </div>
+    <!-- DAY DROPDOWN END -->
 
-    <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': day.open, 'section': !day.open}">
-      <ion-icon slot="end" name="chevron-forward-outline" *ngIf="!day.open"></ion-icon>
-      <ion-icon slot="end" name="chevron-down-outline" *ngIf="day.open"></ion-icon>
-      <ion-label>
-        {{ day.name }}
-      </ion-label>
-    </ion-item>
-
+    <!-- RECIPE DETAILS START -->
     <div *ngIf="day.recipes && day.open">
-      <ion-list *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;" lines="none" class="child-list">
-        <ion-item>
+      <ion-row *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;" class="child-list">
+        <ion-col size="12">
           <ion-select (ionChange)="changedRecipe(j, day['name'], $event)" placeholder="Select a recipe...">          
             <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
           </ion-select>
-        </ion-item>
-        <app-product [product]="schedRecipe.recipe" *ngIf="schedRecipe"></app-product>
-      </ion-list>
+          <app-product [product]="schedRecipe.recipe" *ngIf="schedRecipe"></app-product>
+        </ion-col>
+      </ion-row>
     </div>
-  </ion-list>
+    <!-- RECIPE DETAILS START -->
+
+  </ion-grid>
+
 </ion-content>
 
