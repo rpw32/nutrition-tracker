@@ -15,10 +15,9 @@
 
 <ion-content>
 
-  <ion-grid fixed *ngFor="let day of recipeSchedule; let i = index;" class="accordion-list" lines="none" detail="false">
+  <ion-grid fixed *ngFor="let day of recipeSchedule; let i = index;" class="accordion-list">
     
     <!-- DAY DROPDOWN START -->
-    <div>
       <ion-row>
         <ion-col size="12">
           <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': day.open, 'section': !day.open}">
@@ -30,13 +29,12 @@
           </ion-item>
         </ion-col>
       </ion-row>
-    </div>
     <!-- DAY DROPDOWN END -->
 
     <!-- RECIPE DETAILS START -->
     <div *ngIf="day.recipes && day.open">
-      <ion-row *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;" class="child-list">
-        <ion-col size="12">
+      <ion-row class="child-list">
+        <ion-col size="12" size-md *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;">
           <ion-select (ionChange)="changedRecipe(j, day['name'], $event)" placeholder="Select a recipe...">          
             <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
           </ion-select>
@@ -44,7 +42,7 @@
         </ion-col>
       </ion-row>
     </div>
-    <!-- RECIPE DETAILS START -->
+    <!-- RECIPE DETAILS END -->
 
   </ion-grid>
 
