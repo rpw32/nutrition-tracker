@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeDay } from '../../shared/models/weekly-list.model';
-import { ApiService } from '../api.service';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root'
