@@ -1,9 +1,8 @@
-import { InternalRecipe } from './recipe.model';
+import { InternalRecipe, Recipe } from './recipe.model';
 
-
-export interface RecipeDay {
+export class RecipeDay {
    name: string;
-   recipes: InternalRecipe[];
+   recipes: InternalRecipe[] = [];
 }
 
 export class InternalRecipeDay implements RecipeDay {
@@ -21,5 +20,5 @@ export class InternalRecipeDay implements RecipeDay {
 
 export class WeeklySchedule {
    _id: string;
-   days: RecipeDay[];
+   days: RecipeDay[] = [];
 }

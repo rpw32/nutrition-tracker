@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/models/recipe.model';
 import { Subscription } from 'rxjs';
 import { InternalRecipeDay } from '../shared/models/weekly-list.model';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-tab1',
@@ -18,17 +19,21 @@ export class Tab1Page implements OnInit {
 
   automaticClose = false;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService, private storageService: StorageService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+
     this._recipeSubscription = this.recipeService.recipesChange.subscribe((value) => {
-      this.recipes = value;
+      if (value) { this.recipes = value; }
     });
 
     this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
-      this.recipeSchedule = value as InternalRecipeDay[];
+      if (value){ this.recipeSchedule = value as InternalRecipeDay[]; }
     });
+
+    this.recipeSchedule = (await this.storageService.getSchedule(this.recipeService.id)).days as InternalRecipeDay[];
+    console.log(this.recipeSchedule);
   }
 
   toggleSection(i) {

@@ -66,7 +66,7 @@ export class RecipeService {
     return this.api.getSchedule(this.id, httpOptions).pipe(
       map(
         data => {
-          if  ((data !== -1) && (data != null)){
+          if  ((data !== -1) && (data != null) && data['result']){
             console.log('Success');// successfully retrieved recipes
             return data;
           }
@@ -128,7 +128,7 @@ export class RecipeService {
     return this.api.get50Recipes(httpOptions).pipe(
       map(
         data => {
-          if  ((data !== -1) && (data != null)){
+          if  ((data !== -1) && (data != null) && data['result']){
             console.log('Success');// successfully retrieved recipes
             return data;
           }
