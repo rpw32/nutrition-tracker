@@ -1,12 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { WeeklySchedule } from 'src/app/shared/models/weekly-list.model';
+import { Recipe } from 'src/app/shared/models/recipe.model';
+import { RecipeDay } from 'src/app/shared/models/weekly-list.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
   private _storage: Storage | null = null;
+
+  private weekdays: Array<string> = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
 
   constructor(private storage: Storage) { 
     this.init();
@@ -21,14 +32,21 @@ export class StorageService {
 
   // Create and expose methods that users of this service can
   // call, for example:
-  public async setSchedule(key: string, value: WeeklySchedule) {
+  public async setSchedule(key: string, value: RecipeDay[]) {
     this._storage?.set(key, value);
   }
 
-  public async getSchedule(key: string) : Promise<WeeklySchedule> {
+  public async getSchedule(key: string) : Promise<RecipeDay[]> {
     const retVal = await this._storage?.get(key);
-    const schedule = new WeeklySchedule();
-    console.log("Getting Schedule" + schedule);
-    return retVal ?? new WeeklySchedule();
+    return retVal ?? this.getDefaultSchedule();
+  }
+
+  private getDefaultSchedule() : RecipeDay[] {
+    const defaultSchedule : RecipeDay[] = this.weekdays.map(val=> {
+      return new RecipeDay(val);
+    });
+    return defaultSchedule;
   }
 }
+
+

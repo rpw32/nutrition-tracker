@@ -32,7 +32,7 @@ export class Tab1Page implements OnInit {
       if (value){ this.recipeSchedule = value as InternalRecipeDay[]; }
     });
 
-    this.recipeSchedule = (await this.storageService.getSchedule(this.recipeService.id)).days as InternalRecipeDay[];
+    this.recipeSchedule = (await this.storageService.getSchedule(this.recipeService.id)) as InternalRecipeDay[];
     console.log(this.recipeSchedule);
   }
 

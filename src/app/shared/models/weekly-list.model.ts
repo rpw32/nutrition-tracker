@@ -3,6 +3,11 @@ import { InternalRecipe, Recipe } from './recipe.model';
 export class RecipeDay {
    name: string;
    recipes: InternalRecipe[] = [];
+
+   public constructor(name: string) {
+      this.name = name;
+      this.recipes = [];
+   }
 }
 
 export class InternalRecipeDay implements RecipeDay {
@@ -16,9 +21,4 @@ export class InternalRecipeDay implements RecipeDay {
       this.recipes = init.recipes;
       return this;
   }
-}
-
-export class WeeklySchedule {
-   _id: string;
-   days: RecipeDay[] = [];
 }
