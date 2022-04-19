@@ -29,22 +29,22 @@ export class Tab1Page implements OnInit {
     });
 
     this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
-      if (value){ this.recipeSchedule = value as InternalRecipeDay[]; }
+      if (value) { 
+        this.recipeSchedule = value as InternalRecipeDay[]; 
+        this.storageService.setSchedule(this.recipeService.id, this.recipeSchedule);
+      }
     });
 
     this.recipeSchedule = (await this.storageService.getSchedule(this.recipeService.id)) as InternalRecipeDay[];
-    console.log(this.recipeSchedule);
   }
 
   toggleSection(i) {
     this.recipeSchedule[i].open = !this.recipeSchedule[i].open;
 
-    if (this.automaticClose && this.recipeSchedule[i].open)
-    {
-      this.recipeSchedule
-        .filter((item, itemIndex) => itemIndex !== i)
-        .map(item => item.open = false);
-    }
+    // If another section is open, close it
+    this.recipeSchedule
+      .filter((item, itemIndex) => itemIndex !== i)
+      .map(item => item.open = false);
   }
 
   getFirstDayOfWeek()
@@ -68,6 +68,7 @@ export class Tab1Page implements OnInit {
     if (dayIndex !== -1)
     {
       const changedRecipe: Recipe = event.detail.value as Recipe;
+      this.storageService.updateSchedule(this.recipeService.id, mealIndex, dayIndex, changedRecipe);
       this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe).subscribe();
     }
   }

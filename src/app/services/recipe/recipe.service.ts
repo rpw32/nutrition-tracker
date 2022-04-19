@@ -32,11 +32,11 @@ export class RecipeService {
     });
 
     let scheduleResponse = this.getSchedule().subscribe(data => {
-      let scheduleResponse = data['schedule'] as string;
-      console.log(scheduleResponse);
-      this.schedule = JSON.parse(scheduleResponse)['days'] as RecipeDay[];
-      if (data['result'])
-      {
+      if (data['result']) {
+        let scheduleResponse = data['schedule'] as string;
+        console.log(scheduleResponse);
+        this.schedule = JSON.parse(scheduleResponse)['days'] as RecipeDay[];
+
         this.updateScheduleSusbcribers();
       }
     });

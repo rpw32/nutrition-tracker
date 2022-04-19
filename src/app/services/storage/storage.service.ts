@@ -34,11 +34,21 @@ export class StorageService {
   // call, for example:
   public async setSchedule(key: string, value: RecipeDay[]) {
     this._storage?.set(key, value);
+    console.log('Setting schedule');
   }
 
   public async getSchedule(key: string) : Promise<RecipeDay[]> {
     const retVal = await this._storage?.get(key);
     return retVal ?? this.getDefaultSchedule();
+  }
+
+  public async updateSchedule(key: string, mealIndex: number, dayIndex: number, recipe: Recipe) {
+    console.log('Updating stored schedule');
+    let updateRecipe = await this._storage?.get(key) as RecipeDay[];
+    console.log(updateRecipe);
+    updateRecipe[dayIndex].recipes[mealIndex].recipe = recipe;
+    await this._storage?.set(key, updateRecipe);
+    console.log(this._storage?.get(key));
   }
 
   private getDefaultSchedule() : RecipeDay[] {

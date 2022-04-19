@@ -6,14 +6,14 @@ export class RecipeDay {
 
    public constructor(name: string) {
       this.name = name;
-      this.recipes = [];
+      this.recipes = Array(3);
    }
 }
 
 export class InternalRecipeDay implements RecipeDay {
    open: boolean;
    name: string;
-   recipes: InternalRecipe[];
+   recipes: InternalRecipe[] = [];
 
    public constructor(init?: Partial<RecipeDay>) {
       this.open = false;
