@@ -19,7 +19,7 @@ export class Tab1Page implements OnInit {
 
   automaticClose = false;
 
-  constructor(private recipeService: RecipeService, private storageService: StorageService) {
+  constructor(private recipeService: RecipeService) {
   }
 
   async ngOnInit() {
@@ -31,11 +31,8 @@ export class Tab1Page implements OnInit {
     this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
       if (value) { 
         this.recipeSchedule = value as InternalRecipeDay[]; 
-        this.storageService.setSchedule(this.recipeService.id, this.recipeSchedule);
       }
     });
-
-    this.recipeSchedule = (await this.storageService.getSchedule(this.recipeService.id)) as InternalRecipeDay[];
   }
 
   toggleSection(i) {
@@ -68,8 +65,7 @@ export class Tab1Page implements OnInit {
     if (dayIndex !== -1)
     {
       const changedRecipe: Recipe = event.detail.value as Recipe;
-      this.storageService.updateSchedule(this.recipeService.id, mealIndex, dayIndex, changedRecipe);
-      this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe).subscribe();
+      this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe);
     }
   }
 

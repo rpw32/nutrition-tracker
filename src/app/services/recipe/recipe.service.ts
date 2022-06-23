@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { RecipeDay } from '../../shared/models/weekly-list.model';
+import { InternalRecipeDay, RecipeDay } from '../../shared/models/weekly-list.model';
 import { ApiService } from '../api/api.service';
+import { StorageService } from '../storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class RecipeService {
   recipes: Recipe[];
   recipesChange: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private storage: StorageService) {
 
     let recipeResponse = this.get50Recipes().subscribe(data => {
       let recipeResponse = data['recipes'] as string;
@@ -31,87 +32,40 @@ export class RecipeService {
       this.updateRecipeSusbcribers();
     });
 
-    let scheduleResponse = this.getSchedule().subscribe(data => {
-      if (data['result']) {
-        let scheduleResponse = data['schedule'] as string;
-        console.log(scheduleResponse);
-        this.schedule = JSON.parse(scheduleResponse)['days'] as RecipeDay[];
-
-        this.updateScheduleSusbcribers();
-      }
-    });
+    this.getSchedule();
    }
 
-  updateScheduleSusbcribers()
-  {
-    this.scheduleChange.next(this.schedule);
+  async getSchedule() {
+    await this.storage.getSchedule(this.id).then(val => {
+      this.schedule = val;
+      console.log(val);
+    });
+    console.log(this.schedule);
+
+    let schedule = Array<RecipeDay>();
+    this.getRemoteSchedule().subscribe(data => {
+      if (data['result']) {
+        let scheduleResponse = data['schedule'] as string;
+        schedule = JSON.parse(scheduleResponse)['days'] as RecipeDay[];
+        if (this.schedule.length == 0)
+        {
+          this.schedule = schedule;
+          this.storage.setSchedule(this.id, schedule);
+        }
+      }
+    });
+
+    this.updateScheduleSusbcribers();
   }
 
-  updateRecipeSusbcribers()
-  {
-    this.recipesChange.next(this.recipes);
-  }
+  async updateSchedule(mealIndex: number, dayIndex: number, scheduleUpdate: Recipe) {
+    // Update local storage first
+    this.schedule = await this.storage.updateSchedule(this.id, mealIndex, dayIndex, scheduleUpdate);
 
-  getSchedule(): Observable<any> {
-    console.log('Getting the weekly schedule');
+    // Send the update off to the remote storage
+    this.updateRemoteSchedule(mealIndex, dayIndex, scheduleUpdate).subscribe();
 
-    // set headers
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-
-    // submit form to backend to get name by email
-    return this.api.getSchedule(this.id, httpOptions).pipe(
-      map(
-        data => {
-          if  ((data !== -1) && (data != null) && data['result']){
-            console.log('Success');// successfully retrieved recipes
-            return data;
-          }
-          else {
-            // couldn't find a name
-            console.log('Failure');
-            return false;
-          }
-        },
-      )
-    );
-    
-  }
-
-  updateSchedule(mealIndex: number, dayIndex: number, scheduleUpdate: Recipe): Observable<any> {
-    console.log('Sending the schedule update to the server');
-
-    const paramString = JSON.stringify(scheduleUpdate);
-    const paramObj = JSON.parse(paramString);
-
-    // set headers
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-
-    // submit form to backend to get name by email
-    return this.api.updateSchedule(this.id, mealIndex, dayIndex, paramObj, httpOptions).pipe(
-      map(
-        data => {
-          if  ((data !== -1) && (data != null) && data['result']){
-            console.log('Success');// successfully retrieved recipes
-            this.updateScheduleArray(mealIndex, dayIndex, scheduleUpdate);
-            return data;
-          }
-          else {
-            // couldn't find a name
-            console.log('Failure');
-            this.updateScheduleSusbcribers();
-            return false;
-          }
-        },
-      )
-    );
+    this.updateScheduleSusbcribers();
   }
 
   get50Recipes(): Observable<any> {
@@ -217,37 +171,109 @@ export class RecipeService {
     );
   }
 
+  private getRemoteSchedule(): Observable<any> {
+    console.log('Getting the weekly schedule');
+
+    // set headers
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    // submit form to backend to get name by email
+    return this.api.getSchedule(this.id, httpOptions).pipe(
+      map(
+        data => {
+          if  ((data !== -1) && (data != null) && data['result']){
+            console.log('Success');// successfully retrieved recipes
+            return data;
+          }
+          else {
+            // couldn't find a name
+            console.log('Failure');
+            return false;
+          }
+        },
+      )
+    );
+    
+  }
+
+  private updateRemoteSchedule(mealIndex: number, dayIndex: number, scheduleUpdate: Recipe): Observable<any> {
+    console.log('Sending the schedule update to the server');
+
+    const paramString = JSON.stringify(scheduleUpdate);
+    const paramObj = JSON.parse(paramString);
+
+    // set headers
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    // submit form to backend to get name by email
+    return this.api.updateSchedule(this.id, mealIndex, dayIndex, paramObj, httpOptions).pipe(
+      map(
+        data => {
+          if  ((data !== -1) && (data != null) && data['result']){
+            console.log('Success');// successfully retrieved recipes
+            this.updateScheduleArray(mealIndex, dayIndex, scheduleUpdate);
+            return data;
+          }
+          else {
+            // couldn't find a name
+            console.log('Failure');
+            this.updateScheduleSusbcribers();
+            return false;
+          }
+        },
+      )
+    );
+  }
+
+  private updateScheduleSusbcribers()
+  {
+    this.scheduleChange.next(this.schedule);
+  }
+
+   private updateRecipeSusbcribers()
+  {
+    this.recipesChange.next(this.recipes);
+  }
+
   /// UTILITY FUNCTIONS
   /// {
-    // Finds the recipe in the service's recipe array and updates it with the given recipe
-    updateRecipeArray(recipeUpdate: Recipe) {
-      const updateItem = this.recipes.find(this.findIndexToUpdate, recipeUpdate._id);
-      const index = this.recipes.indexOf(updateItem);
-  
-      if (index !== -1)
-      {
-        this.recipes[index] = recipeUpdate;
-      }
-      else
-      {
-        this.recipes.push(recipeUpdate);
-      }
-  
-      this.updateRecipeSusbcribers();
-      console.log(this.recipes);
+  // Finds the recipe in the service's recipe array and updates it with the given recipe
+  private updateRecipeArray(recipeUpdate: Recipe) {
+    const updateItem = this.recipes.find(this.findIndexToUpdate, recipeUpdate._id);
+    const index = this.recipes.indexOf(updateItem);
+
+    if (index !== -1)
+    {
+      this.recipes[index] = recipeUpdate;
+    }
+    else
+    {
+      this.recipes.push(recipeUpdate);
     }
 
-    // Updates the recipe in the service's schedule at the given indices
-    updateScheduleArray(mealIndex: number, dayIndex: number, recipeUpdate: Recipe) {
-      // Quick sanity check
-      if (mealIndex >= 0 && dayIndex >= 0) {
-        this.schedule[dayIndex].recipes[mealIndex].recipe = recipeUpdate;
-      }
+    this.updateRecipeSusbcribers();
+    console.log(this.recipes);
+  }
+
+  // Updates the recipe in the service's schedule at the given indices
+  private updateScheduleArray(mealIndex: number, dayIndex: number, recipeUpdate: Recipe) {
+    // Quick sanity check
+    if (mealIndex >= 0 && dayIndex >= 0) {
+      this.schedule[dayIndex].recipes[mealIndex].recipe = recipeUpdate;
     }
-  
-  
-    findIndexToUpdate(newItem) {
-      return newItem._id === this;
-    }
+  }
+
+
+  private findIndexToUpdate(newItem) {
+    return newItem._id === this;
+  }
   /// }
 }

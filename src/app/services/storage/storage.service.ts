@@ -24,9 +24,8 @@ export class StorageService {
   }
 
   async init() {
-    // If using a custom driver:
-    // await this.storage.defineDriver(MyCustomDriver)
     const storage = await this.storage.create();
+    console.log('Storage created!');
     this._storage = storage;
   }
 
@@ -38,17 +37,23 @@ export class StorageService {
   }
 
   public async getSchedule(key: string) : Promise<RecipeDay[]> {
-    const retVal = await this._storage?.get(key);
+    let retVal: RecipeDay[] = Array<RecipeDay>();
+    await this._storage?.get(key).then(val =>
+      {
+        retVal = val;
+        console.log(val);
+      }
+    );
+    console.log(retVal);
     return retVal ?? this.getDefaultSchedule();
   }
 
-  public async updateSchedule(key: string, mealIndex: number, dayIndex: number, recipe: Recipe) {
+  public async updateSchedule(key: string, mealIndex: number, dayIndex: number, recipe: Recipe) : Promise<RecipeDay[]> {
     console.log('Updating stored schedule');
     let updateRecipe = await this._storage?.get(key) as RecipeDay[];
     console.log(updateRecipe);
     updateRecipe[dayIndex].recipes[mealIndex].recipe = recipe;
-    await this._storage?.set(key, updateRecipe);
-    console.log(this._storage?.get(key));
+    return await this._storage?.set(key, updateRecipe);
   }
 
   private getDefaultSchedule() : RecipeDay[] {
