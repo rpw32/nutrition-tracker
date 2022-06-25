@@ -30,7 +30,7 @@ export class Tab1Page implements OnInit {
 
     this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
       if (value) { 
-        this.recipeSchedule = value as InternalRecipeDay[]; 
+          this.recipeSchedule = value as InternalRecipeDay[]; 
       }
     });
   }
