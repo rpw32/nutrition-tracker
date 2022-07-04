@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { InternalRecipeDay, RecipeDay } from '../../shared/models/weekly-list.model';
+import { RecipeDay, WeeklyList } from '../../shared/models/weekly-list.model';
 import { ApiService } from '../api/api.service';
 import { StorageService } from '../storage/storage.service';
 
@@ -18,8 +18,11 @@ export class RecipeService {
   // the request by pinging the auth service for the expected key
   id: string = "61ea463459bd501f9b844002";
 
-  schedule: RecipeDay[];
-  scheduleChange: BehaviorSubject<RecipeDay[]> = new BehaviorSubject<RecipeDay[]>([]);
+  // The most recent schedule update time
+  updateTime: number;
+
+  schedule: WeeklyList;
+  scheduleChange: BehaviorSubject<WeeklyList> = new BehaviorSubject<WeeklyList>(null);
 
   recipes: Recipe[];
   recipesChange: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
@@ -42,16 +45,23 @@ export class RecipeService {
     });
     console.log(this.schedule);
 
-    let schedule = Array<RecipeDay>();
+    let schedule = new WeeklyList();
     this.getRemoteSchedule().subscribe(data => {
       if (data['result']) {
         let scheduleResponse = data['schedule'] as string;
-        schedule = JSON.parse(scheduleResponse)['days'] as RecipeDay[];
-        if (this.schedule.length == 0)
+        schedule = JSON.parse(scheduleResponse) as WeeklyList;
+        console.log(schedule);
+        if (this.schedule.days.length === 0 || this.schedule.updateTime < schedule.updateTime)
         {
           this.schedule = schedule;
           this.storage.setSchedule(this.id, schedule);
+        } 
+        else if (this.schedule.updateTime >= schedule.updateTime) {
+          this.setRemoteSchedule(this.schedule).subscribe();
         }
+      }
+      else {
+        this.setRemoteSchedule(this.schedule).subscribe();
       }
     });
 
@@ -59,11 +69,14 @@ export class RecipeService {
   }
 
   async updateSchedule(mealIndex: number, dayIndex: number, scheduleUpdate: Recipe) {
+
+    this.updateTime = new Date().getTime();
+
     // Update local storage first
-    this.schedule = await this.storage.updateSchedule(this.id, mealIndex, dayIndex, scheduleUpdate);
+    this.schedule = await this.storage.updateSchedule(this.id, mealIndex, dayIndex, this.updateTime, scheduleUpdate);
 
     // Send the update off to the remote storage
-    this.updateRemoteSchedule(mealIndex, dayIndex, scheduleUpdate).subscribe();
+    this.updateRemoteSchedule(mealIndex, dayIndex, this.updateTime, scheduleUpdate).subscribe();
 
     this.updateScheduleSusbcribers();
   }
@@ -197,14 +210,46 @@ export class RecipeService {
         },
       )
     );
-    
   }
 
-  private updateRemoteSchedule(mealIndex: number, dayIndex: number, scheduleUpdate: Recipe): Observable<any> {
+  private setRemoteSchedule(weeklyList: WeeklyList) : Observable<any> {
+    console.log('Setting the schedule on the server');
+
+    const paramString = JSON.stringify(weeklyList);
+    const paramObj = JSON.parse(paramString);
+
+    // set headers
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    // submit form to backend to get name by email
+    return this.api.setSchedule(this.id, paramObj, httpOptions).pipe(
+      map(
+        data => {
+          if  ((data !== -1) && (data != null) && data['result']){
+            console.log('Success'); // Successfully retrieved recipes
+            return data;
+          }
+          else {
+            // couldn't find a name
+            console.log('Failure');
+            return false;
+          }
+        },
+      )
+    );
+  }
+
+  private updateRemoteSchedule(mealIndex: number, dayIndex: number, updateTime: number, scheduleUpdate: Recipe): Observable<any> {
     console.log('Sending the schedule update to the server');
 
     const paramString = JSON.stringify(scheduleUpdate);
+    console.log(paramString);
     const paramObj = JSON.parse(paramString);
+    paramObj['time'] = updateTime;
 
     // set headers
     const httpOptions = {
@@ -267,7 +312,7 @@ export class RecipeService {
   private updateScheduleArray(mealIndex: number, dayIndex: number, recipeUpdate: Recipe) {
     // Quick sanity check
     if (mealIndex >= 0 && dayIndex >= 0) {
-      this.schedule[dayIndex].recipes[mealIndex].recipe = recipeUpdate;
+      this.schedule.days[dayIndex].recipes[mealIndex].recipe = recipeUpdate;
     }
   }
 

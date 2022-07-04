@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { WeeklyList } from 'src/app/shared/models/weekly-list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,29 @@ export class ApiService {
     )
   }
 
+  setSchedule(_id: string, input: string, options: any): Observable<any> {
+    console.log('Calling setSchedule: ', options);
+    return this.http.put(this.baseUrl + `/schedule/${_id}`, input, options).pipe(
+      map(
+        data => {
+          console.log('Posted new schedule update! Data posted: ', data);
+          return data;
+        }
+      ),
+      catchError(
+        err => {
+          console.log('POST ERROR: ', err);
+          // the of() function returns to the subscriber
+          // whatever value is inside it.
+          return of(1);
+        }
+      )
+    );
+  }
+
   updateSchedule(_id: string, mealIndex: number, dayIndex: number, input: string, options: any): Observable<any> {
     console.log('Calling updateSchedule: ', options);
-    return this.http.post(this.baseUrl + `/schedule/${_id}/${dayIndex.toString()}/${mealIndex.toString()}`, input, options).pipe(
+    return this.http.patch(this.baseUrl + `/schedule/${_id}/${dayIndex.toString()}/${mealIndex.toString()}`, input, options).pipe(
       map(
         data => {
           console.log('Posted new schedule update! Data posted: ', data);

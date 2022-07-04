@@ -1,23 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { RecipeDay } from 'src/app/shared/models/weekly-list.model';
+import { RecipeDay, WeeklyList } from 'src/app/shared/models/weekly-list.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
   private _storage: Storage | null = null;
-
-  private weekdays: Array<string> = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
 
   constructor(private storage: Storage) { 
     this.init();
@@ -31,13 +21,13 @@ export class StorageService {
 
   // Create and expose methods that users of this service can
   // call, for example:
-  public async setSchedule(key: string, value: RecipeDay[]) {
+  public async setSchedule(key: string, value: WeeklyList) {
     this._storage?.set(key, value);
     console.log('Setting schedule');
   }
 
-  public async getSchedule(key: string) : Promise<RecipeDay[]> {
-    let retVal: RecipeDay[] = Array<RecipeDay>();
+  public async getSchedule(key: string) : Promise<WeeklyList> {
+    let retVal: WeeklyList = new WeeklyList();
     await this._storage?.get(key).then(val =>
       {
         retVal = val;
@@ -45,22 +35,25 @@ export class StorageService {
       }
     );
     console.log(retVal);
-    return retVal ?? this.getDefaultSchedule();
+    if (!retVal) {
+      retVal = new WeeklyList();
+      await this._storage?.set(key, retVal);
+    }
+    return retVal
   }
 
-  public async updateSchedule(key: string, mealIndex: number, dayIndex: number, recipe: Recipe) : Promise<RecipeDay[]> {
+  public async updateSchedule(key: string, mealIndex: number, dayIndex: number, updateTime: number, recipe: Recipe) : Promise<WeeklyList> {
     console.log('Updating stored schedule');
-    let updateRecipe = await this._storage?.get(key) as RecipeDay[];
+    let updateRecipe = await this._storage?.get(key) as WeeklyList;
     console.log(updateRecipe);
-    updateRecipe[dayIndex].recipes[mealIndex].recipe = recipe;
+    if (updateRecipe) {
+      updateRecipe.updateTime = updateTime;
+      updateRecipe.days[dayIndex].recipes[mealIndex].recipe = recipe;
+    }
+    else {
+      console.log("Could not retrieve the recipe schedule. Unable to process update");
+    }
     return await this._storage?.set(key, updateRecipe);
-  }
-
-  private getDefaultSchedule() : RecipeDay[] {
-    const defaultSchedule : RecipeDay[] = this.weekdays.map(val=> {
-      return new RecipeDay(val);
-    });
-    return defaultSchedule;
   }
 }
 
