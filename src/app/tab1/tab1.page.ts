@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/models/recipe.model';
 import { Subscription } from 'rxjs';
 import { InternalRecipeDay } from '../shared/models/weekly-list.model';
+import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-tab1',
@@ -21,25 +22,26 @@ export class Tab1Page implements OnInit {
   constructor(private recipeService: RecipeService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+
     this._recipeSubscription = this.recipeService.recipesChange.subscribe((value) => {
-      this.recipes = value;
+      if (value) { this.recipes = value; }
     });
 
     this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
-      this.recipeSchedule = value as InternalRecipeDay[];
+      if (value) { 
+          this.recipeSchedule = value.days as InternalRecipeDay[]; 
+      }
     });
   }
 
   toggleSection(i) {
     this.recipeSchedule[i].open = !this.recipeSchedule[i].open;
 
-    if (this.automaticClose && this.recipeSchedule[i].open)
-    {
-      this.recipeSchedule
-        .filter((item, itemIndex) => itemIndex !== i)
-        .map(item => item.open = false);
-    }
+    // If another section is open, close it
+    this.recipeSchedule
+      .filter((item, itemIndex) => itemIndex !== i)
+      .map(item => item.open = false);
   }
 
   getFirstDayOfWeek()
@@ -63,7 +65,7 @@ export class Tab1Page implements OnInit {
     if (dayIndex !== -1)
     {
       const changedRecipe: Recipe = event.detail.value as Recipe;
-      this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe).subscribe();
+      this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe);
     }
   }
 

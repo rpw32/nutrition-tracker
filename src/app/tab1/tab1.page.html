@@ -4,12 +4,6 @@
     <ion-title>
       Food Schedule: {{ startEnd[0] | date: 'shortDate' }} - {{ startEnd[1] | date: 'shortDate'}}
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="automaticClose = !automaticClose">
-        <ion-icon slot="icon-only" name="close" *ngIf="automaticClose"></ion-icon>
-        <ion-icon slot="icon-only" name="resize" *ngIf="!automaticClose"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -34,7 +28,7 @@
     <!-- RECIPE DETAILS START -->
     <div *ngIf="day.recipes && day.open">
       <ion-row class="child-list">
-        <ion-col size="12" size-md *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;">
+        <ion-col size="12" size-sm *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;">
           <ion-select (ionChange)="changedRecipe(j, day['name'], $event)" placeholder="Select a recipe...">          
             <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
           </ion-select>
