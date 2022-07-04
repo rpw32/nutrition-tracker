@@ -15,7 +15,7 @@ export class WeeklyList {
    days: RecipeDay[] = [];
 
    public constructor() {
-      this.updateTime = new Date().getTime();
+      this.updateTime = 0;
       this.days = weekdays.map(val=> {
          return new RecipeDay(val);
        });
@@ -37,8 +37,8 @@ export class InternalRecipeDay implements RecipeDay {
    name: string;
    recipes: InternalRecipe[] = [];
 
-   public constructor(init?: Partial<RecipeDay>) {
-      this.open = false;
+   public constructor(open?: boolean, init?: Partial<RecipeDay>) {
+      this.open = open ?? false;
       this.name = init?.name;
       this.recipes = init?.recipes;
       return this;

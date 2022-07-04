@@ -1,5 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
@@ -27,7 +28,7 @@ export class RecipeService {
   recipes: Recipe[];
   recipesChange: BehaviorSubject<Recipe[]> = new BehaviorSubject<Recipe[]>([]);
 
-  constructor(private api: ApiService, private storage: StorageService) {
+  constructor(private api: ApiService, private storage: StorageService, private toastCtrl: ToastController) {
 
     let recipeResponse = this.get50Recipes().subscribe(data => {
       let recipeResponse = data['recipes'] as string;
@@ -45,8 +46,9 @@ export class RecipeService {
     });
     console.log(this.schedule);
 
+    let needToSetRemote: boolean = false;
     let schedule = new WeeklyList();
-    this.getRemoteSchedule().subscribe(data => {
+    this.getRemoteSchedule().subscribe(async data => {
       if (data['result']) {
         let scheduleResponse = data['schedule'] as string;
         schedule = JSON.parse(scheduleResponse) as WeeklyList;
@@ -56,12 +58,26 @@ export class RecipeService {
           this.schedule = schedule;
           this.storage.setSchedule(this.id, schedule);
         } 
-        else if (this.schedule.updateTime >= schedule.updateTime) {
-          this.setRemoteSchedule(this.schedule).subscribe();
+        else if (this.schedule.updateTime > schedule.updateTime) {
+          needToSetRemote = true;
         }
       }
       else {
-        this.setRemoteSchedule(this.schedule).subscribe();
+        needToSetRemote = true;
+      }
+
+      if (needToSetRemote) {
+        console.log('Setting remote!');
+        this.setRemoteSchedule(this.schedule).subscribe(async data => {
+          if (!data) {
+            const toast = await this.toastCtrl.create({
+              message: `Unable to update remote schedule. Please check your connection.`,
+              duration: 2000,
+              position: 'top'
+            });
+            toast.present();
+          }
+        });
       }
     });
 
@@ -229,8 +245,8 @@ export class RecipeService {
     return this.api.setSchedule(this.id, paramObj, httpOptions).pipe(
       map(
         data => {
-          if  ((data !== -1) && (data != null) && data['result']){
-            console.log('Success'); // Successfully retrieved recipes
+          if  ((data !== -1) && (data != null)){
+            console.log('Success'); // Successfully set remote schedule
             return data;
           }
           else {

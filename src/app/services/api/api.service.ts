@@ -47,7 +47,7 @@ export class ApiService {
           console.log('POST ERROR: ', err);
           // the of() function returns to the subscriber
           // whatever value is inside it.
-          return of(1);
+          return of(-1);
         }
       )
     );

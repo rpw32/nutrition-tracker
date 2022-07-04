@@ -30,6 +30,13 @@ export class Tab1Page implements OnInit {
 
     this._scheduleSubscription = this.recipeService.scheduleChange.subscribe((value) => {
       if (value) { 
+          let tempSchedule = value.days as InternalRecipeDay[];
+          if (this.recipeSchedule) {
+            tempSchedule.forEach((day, index) => {
+              day.open = this.recipeSchedule[index].open;
+            });
+          }
+
           this.recipeSchedule = value.days as InternalRecipeDay[]; 
       }
     });
