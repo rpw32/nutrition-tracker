@@ -1,4 +1,5 @@
 import { IonicModule } from '@ionic/angular';
+import { IonicSelectableModule } from 'ionic-selectable';
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,7 +16,8 @@ import { SharedComponentsModule } from '../shared/components/shared-components.m
     FormsModule,
     Tab1PageRoutingModule,
     HttpClientModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    IonicSelectableModule
   ],
   declarations: [Tab1Page],
   providers: [DatePipe]

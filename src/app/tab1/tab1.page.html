@@ -29,9 +29,18 @@
     <div *ngIf="day.recipes && day.open">
       <ion-row class="child-list">
         <ion-col size="12" size-sm *ngFor="let schedRecipe of day.recipes; let j = index; trackBy: indexTracker;">
-          <ion-select (ionChange)="changedRecipe(j, day['name'], $event)" placeholder="Select a recipe...">          
+          <!-- <ion-select (ionChange)="changedRecipe(j, day['name'], $event)" placeholder="Select a recipe...">          
             <ion-select-option *ngFor="let recipe of recipes" [value]="recipe">{{recipe.name}}</ion-select-option>
-          </ion-select>
+          </ion-select> -->
+          <ionic-selectable
+          placeholder="Select a recipe..."
+          [(ngModel)]="recipe"
+          [items]="recipes"
+          itemValueField="_id"
+          itemTextField="name"
+          [canSearch]="true"
+          (ionChange)="changedRecipe(j, day['name'], $event)">
+        </ionic-selectable>
           <app-product [product]="schedRecipe.recipe" *ngIf="schedRecipe"></app-product>
         </ion-col>
       </ion-row>

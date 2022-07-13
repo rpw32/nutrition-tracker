@@ -1,9 +1,9 @@
+import { IonicSelectableComponent } from 'ionic-selectable';
 import { RecipeService } from '../services/recipe/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../shared/models/recipe.model';
 import { Subscription } from 'rxjs';
 import { InternalRecipeDay } from '../shared/models/weekly-list.model';
-import { StorageService } from '../services/storage/storage.service';
 
 @Component({
   selector: 'app-tab1',
@@ -14,6 +14,7 @@ export class Tab1Page implements OnInit {
   _recipeSubscription: Subscription;
   _scheduleSubscription: Subscription;
   recipes: Recipe[];
+  recipe: Recipe;
   recipeSchedule: InternalRecipeDay[];
   startEnd = this.getFirstDayOfWeek();
 
@@ -66,6 +67,7 @@ export class Tab1Page implements OnInit {
 
   changedRecipe(mealIndex: number, day: string, event: CustomEvent)
   {
+    console.log('Recipe change!');
     const updateDay = this.recipeSchedule.find(this.findIndexToUpdate, day);
     const dayIndex = this.recipeSchedule.indexOf(updateDay);
 

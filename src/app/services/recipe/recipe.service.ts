@@ -4,7 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Recipe } from 'src/app/shared/models/recipe.model';
-import { RecipeDay, WeeklyList } from '../../shared/models/weekly-list.model';
+import { WeeklyList } from '../../shared/models/weekly-list.model';
 import { ApiService } from '../api/api.service';
 import { StorageService } from '../storage/storage.service';
 
