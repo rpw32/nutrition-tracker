@@ -39,7 +39,7 @@
           itemValueField="_id"
           itemTextField="name"
           [canSearch]="true"
-          (ionChange)="changedRecipe(j, day['name'], $event)">
+          (onChange)="changedRecipe(j, day['name'], $event)">
         </ionic-selectable>
           <app-product [product]="schedRecipe.recipe" *ngIf="schedRecipe"></app-product>
         </ion-col>

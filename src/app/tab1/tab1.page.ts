@@ -65,17 +65,27 @@ export class Tab1Page implements OnInit {
     return [startDate, endDate];
   }
 
-  changedRecipe(mealIndex: number, day: string, event: CustomEvent)
+  changedRecipe(mealIndex: number, day: string, event: { component: IonicSelectableComponent,
+                                                         value: any
+                                                      })
   {
     console.log('Recipe change!');
+    console.log(event);
     const updateDay = this.recipeSchedule.find(this.findIndexToUpdate, day);
     const dayIndex = this.recipeSchedule.indexOf(updateDay);
 
     if (dayIndex !== -1)
     {
-      const changedRecipe: Recipe = event.detail.value as Recipe;
+      const changedRecipe: Recipe = event.value as Recipe;
       this.recipeService.updateSchedule(mealIndex, dayIndex, changedRecipe);
     }
+  }
+
+  portChange(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+    let port = event.value;
   }
 
   findIndexToUpdate(newItem) {
